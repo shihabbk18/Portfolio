@@ -2,7 +2,7 @@
 
 import { motion, useReducedMotion } from "motion/react";
 import { SectionHeading } from "@/components/section-heading";
-import { research } from "@/data/portfolio";
+import { additionalResearch, research } from "@/data/portfolio";
 import { easeOut } from "@/lib/animations";
 
 export function Research() {
@@ -15,7 +15,7 @@ export function Research() {
           index="04"
           eyebrow="Research & publication"
           title="From visual features to explainable evidence."
-          description="A research record presented with the same restraint expected of the claims themselves."
+          description="Published work, ongoing research, and my contributions to each study."
         />
 
         <div className="research-record">
@@ -27,6 +27,7 @@ export function Research() {
             <h3 id="research-title">{research.title}</h3>
             <p className="research-record__conference">{research.conference}</p>
             <p>{research.summary}</p>
+            <p><strong>My contribution.</strong> {research.contribution}</p>
             <div className="research-result">
               <span>Reported in the publication</span>
               <strong>{research.result}</strong>
@@ -34,8 +35,19 @@ export function Research() {
           </div>
         </div>
 
+        <article className="research-record research-record--secondary" aria-labelledby="review-title">
+          <div className="research-record__meta">
+            <span>Manuscript / {additionalResearch.status}</span>
+            <span>{additionalResearch.role}</span>
+          </div>
+          <div className="research-record__content">
+            <h3 id="review-title">{additionalResearch.title}</h3>
+            <p><strong>My contribution.</strong> {additionalResearch.contribution}</p>
+          </div>
+        </article>
+
         <div className="methodology" aria-label={`Methodology: ${research.methodology.join(" to ")}`}>
-          <span className="methodology__label">Method / 01—06</span>
+          <span className="methodology__label">Mango classification / Method 01—06</span>
           <motion.ol
             initial={reduceMotion ? false : "hidden"}
             whileInView="visible"

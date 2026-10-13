@@ -7,7 +7,7 @@ import {
   useReducedMotion,
   useSpring,
 } from "motion/react";
-import type { PointerEvent } from "react";
+import { Fragment, type PointerEvent } from "react";
 import { hero, identity } from "@/data/portfolio";
 import { easeOut } from "@/lib/animations";
 
@@ -54,8 +54,8 @@ export function Hero() {
 
           <h1 id="hero-heading" className="hero__heading">
             {hero.heading.split(" ").map((word, index) => (
+              <Fragment key={`${word}-${index}`}>
               <motion.span
-                key={`${word}-${index}`}
                 initial={reduceMotion ? false : { opacity: 0, y: "0.55em" }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{
@@ -64,8 +64,10 @@ export function Hero() {
                   ease: easeOut,
                 }}
               >
-                {word}{" "}
+                {word}
               </motion.span>
+              {" "}
+              </Fragment>
             ))}
           </h1>
 

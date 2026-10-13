@@ -1,7 +1,7 @@
 import { Award, GraduationCap } from "lucide-react";
 import { Reveal } from "@/components/reveal";
 import { SectionHeading } from "@/components/section-heading";
-import { education, recognition } from "@/data/portfolio";
+import { activities, earlierEducation, education, languages, recognition } from "@/data/portfolio";
 
 export function Education() {
   return (
@@ -29,7 +29,18 @@ export function Education() {
                 <div><dt>Period</dt><dd>{education.period}</dd></div>
                 <div><dt>CGPA</dt><dd>{education.cgpa}</dd></div>
                 <div><dt>Thesis</dt><dd>{education.thesis}</dd></div>
+                <div><dt>Credits completed</dt><dd>{education.credits}</dd></div>
+                <div className="record__wide"><dt>Relevant coursework</dt><dd>{education.coursework}</dd></div>
               </dl>
+              <div className="earlier-education">
+                {earlierEducation.map((item) => (
+                  <article key={item.qualification}>
+                    <h4>{item.institution}</h4>
+                    <p>{item.qualification}</p>
+                    <p>{item.period} · {item.grade}</p>
+                  </article>
+                ))}
+              </div>
             </div>
           </Reveal>
 
@@ -46,6 +57,14 @@ export function Education() {
                   <li key={item}><span>0{index + 1}</span>{item}</li>
                 ))}
               </ol>
+              <div className="education-details">
+                <h4>Language proficiency</h4>
+                <p>{languages.ielts}</p>
+                <p>{languages.scores}</p>
+                <p>{languages.proficiency}</p>
+                <h4>Community & leadership</h4>
+                <ul>{activities.map((activity) => <li key={activity}>{activity}</li>)}</ul>
+              </div>
             </div>
           </Reveal>
         </div>

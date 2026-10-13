@@ -19,7 +19,7 @@ const manrope = Manrope({
 
 const title = "Shihab Bin Kader | AI Researcher & Computer Vision Developer";
 const description =
-  "Portfolio of Shihab Bin Kader, a Computer Science and Engineering graduate working with computer vision, deep learning, explainable AI, and multimodal systems.";
+  "Portfolio of Shihab Bin Kader, a Computer Science and Engineering graduate with experience in data analysis, computer vision, deep learning, explainable AI, and software development.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),

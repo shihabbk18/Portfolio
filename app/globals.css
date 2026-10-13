@@ -1292,7 +1292,22 @@ a {
 .skill-group__tags { display: flex; flex-wrap: wrap; gap: 0.5rem; align-content: flex-start; opacity: 0.55; transition: opacity 260ms ease; }
 .skill-group--active .skill-group__tags { opacity: 1; }
 
+.additional-projects { margin-top: 4rem; }
+.additional-projects > h3 { font: 520 1.5rem/1.2 var(--font-manrope), sans-serif; }
+.additional-projects__grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr)); gap: 1.5rem; }
+.additional-projects__grid article { padding-top: 1.25rem; border-top: 1px solid var(--border); }
+.additional-projects__grid h4 { margin: 0; color: var(--text-soft); }
+.additional-projects__grid p { color: var(--muted); font-size: 0.85rem; }
+.research-record--secondary { border-top: 0; }
+.research-record--secondary .research-record__content h3 { max-width: 40ch; font-size: clamp(1.5rem, 2.6vw, 2.5rem); }
 .education { background: var(--bg); }
+.record__content dl .record__wide { grid-column: 1 / -1; }
+.earlier-education, .education-details { max-width: 53rem; margin-top: 2.5rem; }
+.earlier-education article { padding: 1.25rem 0; border-top: 1px solid var(--border-soft); }
+.earlier-education h4, .education-details h4 { margin: 0 0 0.7rem; color: var(--text-soft); font-weight: 550; }
+.earlier-education p, .education-details p, .education-details li { margin: 0.4rem 0; color: var(--muted); font-size: 0.85rem; }
+.education-details h4:not(:first-child) { margin-top: 2rem; }
+.education-details ul { padding-left: 1.1rem; }
 .record-list { border-top: 1px solid var(--border); }
 .record { display: grid; grid-template-columns: 5rem 3rem 1fr; gap: clamp(1.5rem, 4vw, 4rem); padding: clamp(2rem, 5vw, 4.5rem) 0; border-bottom: 1px solid var(--border); }
 .record__rail { display: flex; min-height: 15rem; align-items: center; flex-direction: column; color: var(--muted); font-size: 0.6rem; }

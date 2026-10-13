@@ -33,12 +33,12 @@ export const hero = {
   eyebrow: "Open to graduate research opportunities",
   heading: "Building intelligent systems that can see, understand, and explain.",
   description:
-    "I am a Computer Science and Engineering graduate interested in computer vision, deep learning, explainable AI, and multimodal learning. I enjoy building practical AI systems that address meaningful real-world problems.",
+    "I am a Computer Science and Engineering graduate with practical experience in data analysis, computer vision, deep learning, and software development. I build practical AI systems and communicate research findings through clear analysis and technical documentation.",
   orbitLabels: ["Computer Vision", "Explainable AI", "Multimodal Learning"],
 } as const;
 
 export const about = {
-  copy: "I am a Computer Science and Engineering graduate from East Delta University with a strong interest in computer vision, deep learning, and explainable artificial intelligence. My work has focused on applying AI to real-world problems, including mango ripeness classification and real-time sign-language recognition. I am particularly interested in developing reliable and interpretable systems that can support agriculture, healthcare, and other socially meaningful applications.",
+  copy: "I am a Computer Science and Engineering graduate from East Delta University with practical experience in data analysis, artificial intelligence, computer vision, deep learning, and software development. My undergraduate research explored mango ripeness classification with explainable AI, and my projects span sign-language recognition, driver drowsiness detection, image captioning, and multimodal applications. I contribute to research through literature review, data analysis, interpretation of findings, and manuscript review. I enjoy translating technical problems into structured solutions and communicating results clearly.",
   facts: [
     "Based in Chattogram, Bangladesh",
     "B.Sc. in Computer Science and Engineering",
@@ -83,6 +83,8 @@ export const research = {
   conference:
     "2025 IEEE 4th International Conference on Robotics, Automation, Artificial Intelligence and Internet-of-Things",
   role: "Co-author",
+  contribution:
+    "Supported literature review, data analysis, interpretation of results, and manuscript review and revision.",
   summary:
     "The study developed a hybrid Xception-LSTM model to classify mangoes into six ripeness stages using a balanced dataset of 6,000 images. Grad-CAM visualizations were used to examine the image regions that contributed to the model’s decisions.",
   result: "98% accuracy, precision, recall, and F1-score.",
@@ -101,7 +103,32 @@ export const education = {
   degree: "Bachelor of Science in Computer Science and Engineering",
   period: "September 2020 – January 2025",
   cgpa: "3.13 / 4.00",
-  thesis: "Mango Ripeness Detection Using Deep Learning with Explainable AI",
+  credits: "162",
+  thesis: "Deep Learning-Based Mango Ripeness Classification with Explainable AI",
+  coursework: "Artificial Intelligence, Pattern Recognition, Digital Image Processing, Machine Learning, Big Data Analytics, Python Programming",
+} as const;
+
+export const additionalResearch = {
+  title: "Evaluation of Phytochemical Analysis and In Vitro and In Vivo Pharmacological Activity of Methanol Extract of Hyptis brevipes",
+  status: "In review",
+  role: "Co-author",
+  contribution: "Supported literature review, data organization and analysis, interpretation of findings, and manuscript review and revision.",
+} as const;
+
+export const earlierEducation = [
+  { institution: "Govt. Hazi Muhammad Mohsin College, Chattogram", qualification: "Higher Secondary Certificate (HSC) - Science", period: "2016-2018", grade: "GPA: 4.67 / 5.00" },
+  { institution: "Govt. Muslim High School, Chattogram", qualification: "Secondary School Certificate (SSC) - Science", period: "2014-2015", grade: "GPA: 5.00 / 5.00" },
+] as const;
+
+export const activities = [
+  "Executive Member, Computer Club, East Delta University",
+  "Community Volunteer, Mayaful, Chattogram - supported educational and social programs for children and community welfare activities.",
+] as const;
+
+export const languages = {
+  ielts: "IELTS Academic: Overall 7.5 (CEFR C1)",
+  scores: "Listening 8.0 · Reading 8.0 · Writing 6.5 · Speaking 7.0",
+  proficiency: "Bengali: Native · English: Professional working proficiency",
 } as const;
 
 export const recognition = [

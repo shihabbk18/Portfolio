@@ -5,7 +5,7 @@ import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { useCallback, useEffect, useState } from "react";
 import { ProjectCard } from "@/components/project-card";
 import { SectionHeading } from "@/components/section-heading";
-import { projects } from "@/data/projects";
+import { additionalProjects, projects } from "@/data/projects";
 import { easeOut, projectSpring } from "@/lib/animations";
 
 export function ProjectDeck() {
@@ -184,6 +184,17 @@ export function ProjectDeck() {
                 </div>
               </motion.article>
             </AnimatePresence>
+          </div>
+        </div>
+        <div className="additional-projects" aria-labelledby="additional-projects-heading">
+          <h3 id="additional-projects-heading">More technical projects</h3>
+          <div className="additional-projects__grid">
+            {additionalProjects.map((project) => (
+              <article key={project.title}>
+                <h4>{project.title}</h4>
+                <p>{project.description}</p>
+              </article>
+            ))}
           </div>
         </div>
       </div>

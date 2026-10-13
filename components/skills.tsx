@@ -14,7 +14,7 @@ export function Skills() {
           index="05"
           eyebrow="Skills"
           title="A practical research toolkit."
-          description="Grouped by use, without invented proficiency scores or decorative rankings."
+          description="Tools for model development, data analysis, software delivery, and technical communication."
         />
         <h3 id="skills-heading" className="sr-only">Technical skills</h3>
 

@@ -167,11 +167,12 @@ export const projects: Project[] = [
     title: "Sign Sense",
     category: "Computer Vision · Accessibility",
     description:
-      "A real-time American Sign Language recognition project using a convolutional neural network and live video input.",
+      "A real-time American Sign Language recognition project covering 29 classes using deep learning, image processing, and live video input.",
     focus: "Accessibility-focused computer vision",
     technologies: ["Python", "TensorFlow", "Keras", "OpenCV", "CNN"],
     keyFacts: [
       "Real-time ASL recognition",
+      "29 American Sign Language classes",
       "CNN-based prediction",
       "Computer-vision accessibility",
       "Python-based implementation",
@@ -239,3 +240,10 @@ export const projects: Project[] = [
       "This project is an informational review assistant, not a medical device, diagnosis tool, or replacement for professional clinical judgment.",
   },
 ];
+
+export const additionalProjects = [
+  { title: "Drowsiness Detection AI", description: "A real-time computer-vision system to identify signs of driver drowsiness." },
+  { title: "Image Caption Generator", description: "A deep-learning application for image understanding and natural-language generation." },
+  { title: "Multimodal AI Application", description: "Combines information from multiple data modalities for prediction and analysis." },
+  { title: "Fun with Flags", description: "An Android application for interactive flag recognition and learning." },
+] as const;
