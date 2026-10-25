@@ -3,33 +3,15 @@
 import { ArrowDown, ArrowUpRight, FileText, Github } from "lucide-react";
 import {
   motion,
-  useMotionValue,
   useReducedMotion,
-  useSpring,
 } from "motion/react";
-import { Fragment, type PointerEvent } from "react";
+import { Fragment } from "react";
 import { hero, identity } from "@/data/portfolio";
+import { DigitalScene } from "@/components/digital-scene";
 import { easeOut } from "@/lib/animations";
 
 export function Hero() {
   const reduceMotion = useReducedMotion();
-  const rawX = useMotionValue(0);
-  const rawY = useMotionValue(0);
-  const rotateX = useSpring(rawY, { stiffness: 110, damping: 22 });
-  const rotateY = useSpring(rawX, { stiffness: 110, damping: 22 });
-
-  const handlePointerMove = (event: PointerEvent<HTMLDivElement>) => {
-    if (reduceMotion || window.matchMedia("(max-width: 860px)").matches) return;
-    const bounds = event.currentTarget.getBoundingClientRect();
-    rawX.set(((event.clientX - bounds.left) / bounds.width - 0.5) * 5);
-    rawY.set(((event.clientY - bounds.top) / bounds.height - 0.5) * -5);
-  };
-
-  const resetVisual = () => {
-    rawX.set(0);
-    rawY.set(0);
-  };
-
   const entrance = (delay: number) => ({
     initial: reduceMotion ? false : { opacity: 0, y: 18 },
     animate: { opacity: 1, y: 0 },
@@ -40,6 +22,7 @@ export function Hero() {
     <section className="hero section-shell" id="top" aria-labelledby="hero-heading">
       <div className="hero__layout shell">
         <div className="hero__copy">
+          <span className="digital-eyebrow">PORTFOLIO / SHIHAB BIN KADER</span>
           <motion.div className="status-label" {...entrance(0.05)}>
             <i aria-hidden="true" />
             <span>{hero.eyebrow}</span>
@@ -97,34 +80,7 @@ export function Hero() {
           </motion.div>
         </div>
 
-        <motion.div
-          className="hero-visual"
-          aria-hidden="true"
-          initial={reduceMotion ? false : { opacity: 0, scale: 0.97 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.62, delay: reduceMotion ? 0 : 0.18, ease: easeOut }}
-          onPointerMove={handlePointerMove}
-          onPointerLeave={resetVisual}
-          style={{ rotateX, rotateY }}
-        >
-          <div className="hero-visual__orbit hero-visual__orbit--outer" />
-          <div className="hero-visual__orbit hero-visual__orbit--inner" />
-          <span className="hero-visual__axis hero-visual__axis--x" />
-          <span className="hero-visual__axis hero-visual__axis--y" />
-          <div className="hero-visual__core">
-            <small>Research system / 01</small>
-            <strong>{identity.monogram}</strong>
-            <span>Vision · Evidence · Meaning</span>
-          </div>
-          {hero.orbitLabels.map((label, index) => (
-            <span key={label} className={`hero-visual__label hero-visual__label--${index + 1}`}>
-              {label}
-            </span>
-          ))}
-          <i className="hero-visual__node hero-visual__node--1" />
-          <i className="hero-visual__node hero-visual__node--2" />
-          <i className="hero-visual__node hero-visual__node--3" />
-        </motion.div>
+        <DigitalScene />
       </div>
 
       <motion.a className="scroll-cue" href="#about" {...entrance(0.9)}>

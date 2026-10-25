@@ -14,9 +14,11 @@ Add desktop and mobile screenshots to `public/screenshots/`, then reference them
 
 ## Key design features
 
-- Restrained charcoal, warm off-white, and muted sage palette controlled by CSS variables
+- Midnight blue, luminous cyan, and violet palette controlled by CSS variables
 - Editorial typography using Manrope for display text and Inter for body text through `next/font`
-- CSS-built orbital research visual, contour field, grid, and grain with no stock imagery
+- Native CSS 3D globe with rotating wireframes, orbiting lights, floating research panels, and pointer-responsive perspective
+- Pause/resume control and automatic reduced-motion support for the 3D scene
+- Glass-style project cards, illuminated skill panels, and dimensional hover transitions
 - Scroll-aware sticky navigation with active-section states and an accessible mobile menu
 - Reusable viewport reveals, reduced-motion fallbacks, and restrained hover feedback
 - Fully responsive layouts from 320px phones through large desktop displays
@@ -29,7 +31,7 @@ Featured work is rendered from typed data in `data/projects.ts`. All five cards 
 
 - Next.js App Router
 - React and TypeScript
-- Tailwind CSS 4 for the styling toolchain, with the site’s visual system authored in `app/globals.css`
+- Tailwind CSS 4 for the styling toolchain, with the visual system in `app/globals.css` and `app/digital.css`
 - Motion for React
 - Lucide React icons
 - Vitest, Testing Library, and jsdom

@@ -1,17 +1,18 @@
 @import "tailwindcss";
+@import "./digital.css";
 
 :root {
-  --bg: #0b0d0e;
-  --bg-secondary: #111517;
-  --surface: #171c1f;
-  --surface-soft: #14191b;
-  --text: #e6e4df;
-  --text-soft: #c4c6c2;
-  --muted: #969d9b;
-  --sage: #748a81;
-  --sage-deep: #52665f;
-  --warm: #918271;
-  --border: #293033;
+  --bg: #060a14;
+  --bg-secondary: #0a1020;
+  --surface: #101c30;
+  --surface-soft: #0c1526;
+  --text: #edf5ff;
+  --text-soft: #c2d5ed;
+  --muted: #95abc7;
+  --sage: #63e7f3;
+  --sage-deep: #24899e;
+  --warm: #a99aff;
+  --border: #243c58;
   --border-soft: rgba(150, 157, 155, 0.16);
   --shell: 1240px;
   --pad: clamp(1.25rem, 4vw, 3.5rem);
