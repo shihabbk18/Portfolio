@@ -1,142 +1,74 @@
-# Shihab Bin Kader — Interactive AI Portfolio
+# Shihab Bin Kader — Neural Research Lab
 
-Check it out — https://shihabbk18.github.io/Portfolio/
+Live portfolio: https://shihabbk18.github.io/Portfolio/
 
-A production-ready, single-page research portfolio for Shihab Bin Kader, an aspiring AI researcher and computer-vision developer. The site presents verified projects, research, education, and skills through a dark editorial interface designed for graduate-school applications, research opportunities, and professional networking.
+A multi-page portfolio for an aspiring AI researcher and computer-vision developer. Real Three.js scenes, GSAP camera travel, and an animated robot guide connect the portfolio without hiding its research, projects, or accessible HTML content.
 
-## Screenshots
+## Pages
 
-Add desktop and mobile screenshots to `public/screenshots/`, then reference them here. Suggested captures:
+- `/`: neural-core hero and introductions to the portfolio.
+- `/about/`: background, education, language proficiency, skills, and research interests.
+- `/work/`: an interactive 3D project carousel, keyboard controls, and the complete project index.
+- `/work/[slug]/`: five statically generated case studies with problem, approach, outcome, tools, features, and verified links.
+- `/research/`: research contributions, published work, and a clearly labelled manuscript under review.
+- `/contact/`: a communication-terminal scene and validated email-draft form.
 
-- `portfolio-desktop.png` at 1440 × 1000
-- `portfolio-project-deck.png` with a background project selected
-- `portfolio-mobile.png` at 390 × 844
+## Technology
 
-## Key design features
+Next.js App Router, React 19, TypeScript, Tailwind CSS 4, Three.js, React Three Fiber 9, Drei, GSAP/ScrollTrigger, Motion, and Lucide.
 
-- Midnight blue, luminous cyan, and violet palette controlled by CSS variables
-- Editorial typography using Manrope for display text and Inter for body text through `next/font`
-- Native CSS 3D globe with rotating wireframes, orbiting lights, floating research panels, and pointer-responsive perspective
-- Pause/resume control and automatic reduced-motion support for the 3D scene
-- Glass-style project cards, illuminated skill panels, and dimensional hover transitions
-- Scroll-aware sticky navigation with active-section states and an accessible mobile menu
-- Reusable viewport reveals, reduced-motion fallbacks, and restrained hover feedback
-- Fully responsive layouts from 320px phones through large desktop displays
+## Architecture
 
-## Project-deck interaction
+The root layout mounts `ExperienceShell` once. Its provider preserves the selected project, motion setting, and assistant state across client navigation. A dynamically imported world canvas contains five procedural environments. CameraRig uses GSAP for horizontal route travel and ScrollTrigger for depth, with cleanup on route changes. A small independent robot canvas keeps Orbit anchored above page content without remounting the main world.
 
-Featured work is rendered from typed data in `data/projects.ts`. All five cards remain in one visible stack, led by GestureCam FX. The active card has the highest stacking order while the other cards retain small offsets, rotations, opacity changes, and scale changes. Selecting a background card moves it to the front with a restrained spring transition. Previous/Next buttons, Left/Right Arrow keys, touch input, visible focus, a numeric counter, and reduced-motion behavior are included.
+`components/experience/` contains the provider, WebGL boundary, renderer, scenes, and camera controller. `components/robot/` contains the procedural robot, chat interface, and knowledge retrieval. `components/work-gallery.tsx` connects accessible carousel controls to the 3D gallery. `app/experience.css` styles the multi-page interface; the base visual system remains in `app/globals.css` and `app/digital.css`.
 
-## Technology stack
+## Orbit portfolio guide
 
-- Next.js App Router
-- React and TypeScript
-- Tailwind CSS 4 for the styling toolchain, with the visual system in `app/globals.css` and `app/digital.css`
-- Motion for React
-- Lucide React icons
-- Vitest, Testing Library, and jsdom
-- ESLint with Next.js Core Web Vitals rules
+Orbit answers locally from `data/portfolio.ts`, `data/projects.ts`, and `data/skills.ts`. It recognizes project names, supports project follow-up questions, links to case studies, and declines unknown personal information. It is a deterministic knowledge guide, not an external generative AI service. Chat text is not sent to a server, and no API key is needed. History remains in memory while navigating; reloading clears it.
 
-## Local installation
+The robot floats and blinks, becomes attentive when opened, and changes its eye illumination after an answer. Chat is keyboard accessible, supports Escape, and restores launcher focus when closed. The motion setting is the only preference stored locally.
 
-Requirements: Node.js 22.13 or newer and pnpm.
+## Contact behavior
 
-```bash
-pnpm install
-```
+The form validates the visitor's name, email, and message, then opens their email client with a prepared draft. It does not send or store messages and does not claim delivery. A mail-service backend can be added separately if required.
 
 ## Development
 
-```bash
+Requires Node.js 22.13+ and pnpm.
+
+```sh
+pnpm install --frozen-lockfile
 pnpm dev
-```
-
-Open the local address printed by the development server.
-
-## Production builds
-
-The Sites-compatible build is:
-
-```bash
-pnpm build
-```
-
-The standard Next.js build used by Vercel is:
-
-```bash
-pnpm build:next
-```
-
-## Testing and quality checks
-
-```bash
-pnpm lint
 pnpm typecheck
 pnpm test
-pnpm build
+```
+
+The existing development command uses Vinext. For a standard Next.js development session, run `pnpm exec next dev`.
+
+```sh
 pnpm build:next
 ```
 
-The interaction suite covers the project deck, mobile navigation, contact validation, and navigation targets.
+For GitHub Pages, set `NEXT_STATIC_EXPORT=true`, `NEXT_PUBLIC_BASE_PATH=/Portfolio`, and `NEXT_PUBLIC_SITE_URL=https://shihabbk18.github.io/Portfolio`, then build. The existing GitHub Actions workflow supplies these values and deploys `out/` after pushes to `main`.
 
-## Deployment
+## Accessibility and performance
 
-### Vercel
-
-1. Push the `portfolio` directory to a Git repository.
-2. Import the repository in Vercel.
-3. If this directory is part of a larger repository, set the Vercel Root Directory to `portfolio`.
-4. Keep the included `vercel.json`; it runs the standard Next.js production build.
-5. Optionally set `NEXT_PUBLIC_SITE_URL` to the final canonical origin before deployment.
-6. Deploy. No backend, secrets, or API keys are required.
-
-### Other Next.js hosts
-
-Use `pnpm build:next` and a host that supports the Next.js App Router. Set `NEXT_PUBLIC_SITE_URL` to the production origin so canonical, sitemap, robots, and social metadata point to the correct address.
-
-### GitHub Pages
-
-The included `.github/workflows/deploy-pages.yml` workflow exports the portfolio as a static site and publishes it at `https://shihabbk18.github.io/Portfolio/`. It supplies the repository base path during the build so scripts, fonts, the favicon, the Open Graph image, and the CV resolve correctly. GitHub Pages must use **GitHub Actions** as its publishing source.
+Semantic HTML contains all essential content. Real links preserve direct URLs and browser history. Project controls support arrow keys and explicit selection buttons. The guide uses a labelled conversation log. WebGL failures fall back to accessible content and a static robot. Reduced-motion preferences disable continuous rendering; a persistent pause control is also available. Hidden documents stop continuous rendering. Device pixel ratio is capped, procedural assets avoid external model downloads, and the robot uses a small low-power canvas.
 
 ## Editing content
 
-- Identity, biography, focus areas, research, education, recognition, and navigation: `data/portfolio.ts`
-- Featured projects: `data/projects.ts`
-- Skill categories: `data/skills.ts`
-- Layout and interactions: `components/`
-- Visual tokens and responsive rules: `app/globals.css`
-- SEO and structured person data: `app/layout.tsx`
+- `data/portfolio.ts`: identity, biography, research, education, and navigation.
+- `data/projects.ts`: project descriptions, outcomes, features, technologies, and verified links.
+- `data/skills.ts`: skill groups.
+- `public/Shihab-Bin-Kader-CV.pdf`: genuine downloadable CV.
 
-The CV is a verified workspace asset copied to `public/Shihab-Bin-Kader-CV.pdf`. Replace it only with a genuine updated CV and keep the file path in `data/portfolio.ts` synchronized.
+Keep claims grounded in the supplied CV and verified project records. Generate case-study routes and sitemap entries from the project data. Do not add invented achievements, testimonials, or performance metrics.
 
-## Adding another project
+## Validation
 
-1. Add a new object to the `projects` array in `data/projects.ts` and follow the exported `Project` type.
-2. Add each verified repository, live experience, or publication URL to the project’s `links` array.
-3. Add a supported abstract visual variant in `components/project-card.tsx` and `app/globals.css`, or deliberately reuse the closest existing variant.
-4. Keep descriptions, outcomes, and claimed results evidence-based.
-5. The deck counter and Previous/Next logic update from the array length automatically. If the deck grows beyond five projects, extend the physical stack states before publishing.
-
-## Accessibility
-
-- Semantic landmarks and a logical heading hierarchy
-- Skip link and visible keyboard focus
-- Accessible navigation and mobile-menu state
-- Keyboard-operable project deck with an `aria-live` active state
-- Programmatic form labels, validation messages, and invalid states
-- Descriptive external-link labels and decorative graphics excluded from the accessibility tree
-- Global and component-level `prefers-reduced-motion` support
-- Text contrast designed against the dark surface palette
-
-## Performance decisions
-
-- No stock photographs, videos, 3D libraries, CMS, backend, or form service
-- CSS-generated visual identity and a single compressed social-preview bitmap
-- Local page content from typed TypeScript data
-- Font loading through `next/font` with `display: swap`
-- One client-side interaction layer per animated or stateful section
-- No full-screen loader or route-transition delay
+Vitest and Testing Library cover navigation, project interactions, contact validation, assistant focus and chat behavior, knowledge answers and unknown-information handling, and animation controls. Production static exports must include all page routes and five case studies. Verify desktop/mobile layouts and real WebGL rendering before publication.
 
 ## License
 
-The source code is available under the MIT License. Personal biography, research claims, CV content, and identity assets remain attributable to Shihab Bin Kader and should not be reused to impersonate or misrepresent him.
+MIT for source code. Personal biography, research claims, and CV remain attributable to Shihab Bin Kader.

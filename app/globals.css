@@ -1,5 +1,6 @@
 @import "tailwindcss";
 @import "./digital.css";
+@import "./experience.css";
 
 :root {
   --bg: #060a14;
@@ -245,11 +246,11 @@ a {
 }
 
 .site-nav__links a:hover,
-.site-nav__links a[aria-current="location"] {
+.site-nav__links a[aria-current="page"] {
   color: var(--text);
 }
 
-.site-nav__links a[aria-current="location"]::after,
+.site-nav__links a[aria-current="page"]::after,
 .site-nav__links a:hover::after {
   transform: scaleX(1);
 }

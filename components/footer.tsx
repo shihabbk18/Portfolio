@@ -1,12 +1,13 @@
 import { ArrowUp } from "lucide-react";
 import { identity } from "@/data/portfolio";
+import Link from "next/link";
 
 export function Footer() {
   return (
     <footer className="footer">
       <div className="shell footer__top">
         <div>
-          <a className="monogram" href="#top" aria-label="Back to the top"><span>SBK</span></a>
+          <Link className="monogram" href="/" aria-label="Return home"><span>SBK</span></Link>
           <p><strong>{identity.name}</strong><br />{identity.title}</p>
         </div>
         <p>Designed and built with curiosity, research, and careful iteration.</p>

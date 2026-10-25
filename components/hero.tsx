@@ -6,8 +6,8 @@ import {
   useReducedMotion,
 } from "motion/react";
 import { Fragment } from "react";
+import Link from "next/link";
 import { hero, identity } from "@/data/portfolio";
-import { DigitalScene } from "@/components/digital-scene";
 import { easeOut } from "@/lib/animations";
 
 export function Hero() {
@@ -59,10 +59,10 @@ export function Hero() {
           </motion.p>
 
           <motion.div className="hero__actions" {...entrance(0.78)}>
-            <a className="button button--primary" href="#work">
+            <Link className="button button--primary" href="/work/">
               Explore my work
               <ArrowDown aria-hidden="true" size={17} />
-            </a>
+            </Link>
             <a
               className="button button--secondary"
               href={identity.github}
@@ -80,10 +80,10 @@ export function Hero() {
           </motion.div>
         </div>
 
-        <DigitalScene />
+        <div className="hero-spatial" aria-hidden="true"><span>NEURAL CORE / 01</span><small>COMPUTER VISION · EXPLAINABLE AI</small><div>HUMAN CURIOSITY.<br />MACHINE INTELLIGENCE.</div></div>
       </div>
 
-      <motion.a className="scroll-cue" href="#about" {...entrance(0.9)}>
+      <motion.a className="scroll-cue" href="#explore" {...entrance(0.9)}>
         <span>Scroll to explore</span>
         <ArrowDown aria-hidden="true" size={15} />
       </motion.a>

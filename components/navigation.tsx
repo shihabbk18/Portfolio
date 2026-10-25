@@ -1,40 +1,22 @@
 "use client";
 
 import { Github, Menu, X } from "lucide-react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
-import { identity, navigationItems } from "@/data/portfolio";
+import { basePath, identity, navigationItems } from "@/data/portfolio";
 
 export function Navigation() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const [activeSection, setActiveSection] = useState("");
+  const pathname = usePathname();
+  const path = basePath && pathname.startsWith(basePath) ? pathname.slice(basePath.length) : pathname;
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 28);
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
-  }, []);
-
-  useEffect(() => {
-    if (!("IntersectionObserver" in window)) return;
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const visible = entries
-          .filter((entry) => entry.isIntersecting)
-          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
-        if (visible) setActiveSection(visible.target.id);
-      },
-      { rootMargin: "-18% 0px -65%", threshold: [0.08, 0.25, 0.5] },
-    );
-
-    navigationItems.forEach(({ section }) => {
-      const element = document.getElementById(section);
-      if (element) observer.observe(element);
-    });
-
-    return () => observer.disconnect();
   }, []);
 
   useEffect(() => {
@@ -55,9 +37,9 @@ export function Navigation() {
   return (
     <header className={`site-nav ${scrolled || menuOpen ? "site-nav--filled" : ""}`}>
       <div className="site-nav__inner shell">
-        <a className="monogram" href="#top" aria-label="Shihab Bin Kader — home" onClick={closeMenu}>
+        <Link className="monogram" href="/" aria-label="Shihab Bin Kader — home" onClick={closeMenu}>
           <span>SBK</span>
-        </a>
+        </Link>
 
         <nav
           id="primary-navigation"
@@ -65,14 +47,14 @@ export function Navigation() {
           aria-label="Primary navigation"
         >
           {navigationItems.map((item) => (
-            <a
+            <Link
               key={item.section}
               href={item.href}
               onClick={closeMenu}
-              aria-current={activeSection === item.section ? "location" : undefined}
+              aria-current={(item.href === "/" ? path === "/" : path === item.href.replace(/\/$/, "") || path.startsWith(item.href)) ? "page" : undefined}
             >
               <span>{item.label}</span>
-            </a>
+            </Link>
           ))}
           <a
             className="site-nav__github"

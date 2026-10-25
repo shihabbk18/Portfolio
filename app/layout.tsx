@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Inter, Manrope } from "next/font/google";
-import { BackgroundVisual } from "@/components/background-visual";
-import { Navigation } from "@/components/navigation";
+import { ExperienceShell } from "@/components/experience/experience-shell";
 import { identity, siteUrl, withBasePath } from "@/data/portfolio";
 import "./globals.css";
 
@@ -90,9 +89,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
     <html lang="en">
       <body className={`${inter.variable} ${manrope.variable}`}>
         <a className="skip-link" href="#main-content">Skip to main content</a>
-        <BackgroundVisual />
-        <Navigation />
-        {children}
+        <ExperienceShell>{children}</ExperienceShell>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(personSchema).replace(/</g, "\\u003c") }}

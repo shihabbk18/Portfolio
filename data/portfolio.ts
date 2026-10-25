@@ -22,11 +22,11 @@ export const identity = {
 } as const;
 
 export const navigationItems = [
-  { label: "About", href: "#about", section: "about" },
-  { label: "Work", href: "#work", section: "work" },
-  { label: "Research", href: "#research", section: "research" },
-  { label: "Skills", href: "#skills", section: "skills" },
-  { label: "Contact", href: "#contact", section: "contact" },
+  { label: "Home", href: "/", section: "home" },
+  { label: "About", href: "/about/", section: "about" },
+  { label: "Work", href: "/work/", section: "work" },
+  { label: "Research", href: "/research/", section: "research" },
+  { label: "Contact", href: "/contact/", section: "contact" },
 ] as const;
 
 export const hero = {
