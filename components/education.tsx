@@ -27,7 +27,6 @@ export function Education() {
               <p className="record__lead">{education.degree}</p>
               <dl>
                 <div><dt>Period</dt><dd>{education.period}</dd></div>
-                <div><dt>CGPA</dt><dd>{education.cgpa}</dd></div>
                 <div><dt>Thesis</dt><dd>{education.thesis}</dd></div>
                 <div><dt>Credits completed</dt><dd>{education.credits}</dd></div>
                 <div className="record__wide"><dt>Relevant coursework</dt><dd>{education.coursework}</dd></div>
@@ -37,7 +36,7 @@ export function Education() {
                   <article key={item.qualification}>
                     <h4>{item.institution}</h4>
                     <p>{item.qualification}</p>
-                    <p>{item.period} · {item.grade}</p>
+                    <p>{item.period}</p>
                   </article>
                 ))}
               </div>

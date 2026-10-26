@@ -2,6 +2,14 @@ import { describe, expect, it } from "vitest";
 import { answerQuestion } from "@/components/robot/knowledge";
 
 describe("Portfolio knowledge guide", () => {
+  it("does not disclose academic grades, including during project follow-ups", () => {
+    for (const question of ["What is his university CGPA?", "What was his college GPA?", "Tell me his school grades"]) {
+      const answer = answerQuestion(question, "model-dna");
+      expect(answer.text).toContain("aren’t shared");
+      expect(answer.link?.href).toBe("/about/");
+    }
+    expect(answerQuestion("Tell me about his education").text).not.toMatch(/cgpa|gpa/i);
+  });
   it("answers a named project question and follows up about its tools", () => {
     const answer = answerQuestion("Tell me about ModelDNA");
     expect(answer.text).toContain("ModelDNA");

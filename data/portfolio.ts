@@ -102,7 +102,6 @@ export const education = {
   university: "East Delta University",
   degree: "Bachelor of Science in Computer Science and Engineering",
   period: "September 2020 – January 2025",
-  cgpa: "3.13 / 4.00",
   credits: "162",
   thesis: "Deep Learning-Based Mango Ripeness Classification with Explainable AI",
   coursework: "Artificial Intelligence, Pattern Recognition, Digital Image Processing, Machine Learning, Big Data Analytics, Python Programming",
@@ -116,8 +115,8 @@ export const additionalResearch = {
 } as const;
 
 export const earlierEducation = [
-  { institution: "Govt. Hazi Muhammad Mohsin College, Chattogram", qualification: "Higher Secondary Certificate (HSC) - Science", period: "2016-2018", grade: "GPA: 4.67 / 5.00" },
-  { institution: "Govt. Muslim High School, Chattogram", qualification: "Secondary School Certificate (SSC) - Science", period: "2014-2015", grade: "GPA: 5.00 / 5.00" },
+  { institution: "Govt. Hazi Muhammad Mohsin College, Chattogram", qualification: "Higher Secondary Certificate (HSC) - Science", period: "2016-2018" },
+  { institution: "Govt. Muslim High School, Chattogram", qualification: "Secondary School Certificate (SSC) - Science", period: "2014-2015" },
 ] as const;
 
 export const activities = [
