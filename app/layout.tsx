@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter, Manrope } from "next/font/google";
 import { ExperienceShell } from "@/components/experience/experience-shell";
 import { identity, siteUrl, withBasePath } from "@/data/portfolio";
+import { themeBootstrap } from "@/data/themes";
 import "./globals.css";
 
 const inter = Inter({
@@ -86,7 +87,8 @@ const personSchema = {
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
+      <head><script dangerouslySetInnerHTML={{ __html: themeBootstrap }} /></head>
       <body className={`${inter.variable} ${manrope.variable}`}>
         <a className="skip-link" href="#main-content">Skip to main content</a>
         <ExperienceShell>{children}</ExperienceShell>

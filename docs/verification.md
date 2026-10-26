@@ -1,5 +1,13 @@
 # Portfolio verification
 
+## 27 October 2026 update: selectable colour themes
+
+- Added persistent Midnight, Black, White, and Violet choices beside the motion control.
+- Theme tokens cover backgrounds, typography, navigation, cards, forms, chat, controls, and 3D accent colours. White uses a light native colour scheme and dark text.
+- An allowlisted inline bootstrap restores a saved palette before hydration. Theme selection still applies when local storage is unavailable.
+- All 25 tests across nine files passed, including choosing White, restoring it after remounting, keyboard dismissal, invalid stored values, and blocked storage. Production export and TypeScript passed for all pages and 16 case studies.
+- Visual browser review remains unavailable because the browser tool cannot initialize its kernel assets. The palettes have not been visually verified in this session.
+
 ## 27 October 2026 update: scroll reset and complete project collection
 
 - Added an explicit instant top reset on every pathname change, followed by a frame-level reset after router scroll/focus handling. Explicit section links keep their target.

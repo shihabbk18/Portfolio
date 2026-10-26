@@ -1,6 +1,7 @@
 @import "tailwindcss";
 @import "./digital.css";
 @import "./experience.css";
+@import "./themes.css";
 
 :root {
   --bg: #060a14;

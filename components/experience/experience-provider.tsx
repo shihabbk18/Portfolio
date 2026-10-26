@@ -2,8 +2,11 @@
 
 import { createContext, useContext, useEffect, useState, type ReactNode } from "react";
 import { MotionConfig, useReducedMotion } from "motion/react";
+import { isTheme, themeStorageKey, type ThemeId } from "@/data/themes";
 
 type ExperienceState = {
+  theme: ThemeId;
+  setTheme: (theme: ThemeId) => void;
   motionEnabled: boolean;
   paused: boolean;
   toggleMotion: () => void;
@@ -21,14 +24,26 @@ export function ExperienceProvider({ children }: { children: ReactNode }) {
   const [visible, setVisible] = useState(true);
   const [selectedProject, selectProject] = useState(0);
   const [assistantOpen, setAssistantOpen] = useState(false);
+  const [theme, updateTheme] = useState<ThemeId>("midnight");
 
   useEffect(() => {
+    let saved: unknown = document.documentElement.dataset.theme;
+    try { saved = localStorage.getItem(themeStorageKey) ?? saved; } catch { /* Storage is optional. */ }
+    const initialTheme = isTheme(saved) ? saved : "midnight";
+    updateTheme(initialTheme);
+    document.documentElement.dataset.theme = initialTheme;
     try { setPaused(localStorage.getItem("portfolio-motion-paused") === "true"); } catch { /* Storage is optional. */ }
     const update = () => setVisible(!document.hidden);
     update();
     document.addEventListener("visibilitychange", update);
     return () => document.removeEventListener("visibilitychange", update);
   }, []);
+
+  function setTheme(value: ThemeId) {
+    updateTheme(value);
+    document.documentElement.dataset.theme = value;
+    try { localStorage.setItem(themeStorageKey, value); } catch { /* The theme still works without storage. */ }
+  }
 
   function toggleMotion() {
     setPaused((previous) => {
@@ -39,7 +54,7 @@ export function ExperienceProvider({ children }: { children: ReactNode }) {
 
   const motionEnabled = !paused && !reduced && visible;
   return (
-    <ExperienceContext.Provider value={{ motionEnabled, paused, toggleMotion, selectedProject, selectProject, assistantOpen, setAssistantOpen }}>
+    <ExperienceContext.Provider value={{ theme, setTheme, motionEnabled, paused, toggleMotion, selectedProject, selectProject, assistantOpen, setAssistantOpen }}>
       <MotionConfig reducedMotion={motionEnabled ? "user" : "always"}>
         <div className={`experience-root ${motionEnabled ? "" : "motion-paused"}`}>{children}</div>
       </MotionConfig>

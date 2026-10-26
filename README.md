@@ -27,11 +27,15 @@ The root layout mounts `ExperienceShell` once. Its provider preserves the select
 
 Changing pages resets the document to the top immediately, including after scrolling on the previous page. Explicit section links such as `/about/#skills` still reach their target. The gallery includes all 16 original project repositories, with full case studies, field filters, and text search. GestureCam FX, LitWeaver AI, and Fun with Flags are featured on the home page. Only five neighboring 3D cards render at once to keep the larger collection responsive.
 
+## Colour themes
+
+The persistent Theme control offers Midnight, Black, White, and Violet palettes. It changes page backgrounds, text, navigation, project cards, forms, chat, and 3D scene accents. The choice persists across pages and reloads using local storage, with an allowlisted pre-hydration bootstrap to avoid a flash of the wrong theme. The selector still works when storage is unavailable.
+
 ## Orbit portfolio guide
 
 Orbit answers locally from `data/portfolio.ts`, `data/projects.ts`, and `data/skills.ts`. It recognizes project names, supports project follow-up questions, links to case studies, and declines unknown personal information. It is a deterministic knowledge guide, not an external generative AI service. Chat text is not sent to a server, and no API key is needed. History remains in memory while navigating; reloading clears it.
 
-The robot floats and blinks, becomes attentive when opened, and changes its eye illumination after an answer. Chat is keyboard accessible, supports Escape, and restores launcher focus when closed. The motion setting is the only preference stored locally.
+The robot floats and blinks, becomes attentive when opened, and changes its eye illumination after an answer. Chat is keyboard accessible, supports Escape, and restores launcher focus when closed. The motion and colour-theme preferences are stored locally.
 
 ## Contact behavior
 

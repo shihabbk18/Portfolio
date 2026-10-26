@@ -8,6 +8,7 @@ import { Assistant } from "@/components/robot/assistant";
 import { Navigation } from "@/components/navigation";
 import { Footer } from "@/components/footer";
 import { RouteScrollReset } from "./route-scroll-reset";
+import { ThemePicker } from "./theme-picker";
 
 function ShellContent({ children }: { children: ReactNode }) {
   const { motionEnabled, paused, toggleMotion } = useExperience();
@@ -16,7 +17,7 @@ function ShellContent({ children }: { children: ReactNode }) {
     <SceneLoader />
     <Navigation />
     <div className="experience-content">{children}<Footer /></div>
-    <div className="experience-controls"><span><Orbit size={13} aria-hidden="true" /> NEURAL LAB / SBK</span><button type="button" onClick={toggleMotion} aria-pressed={paused} aria-label={paused ? "Resume animations" : "Pause animations"}>{motionEnabled ? <Pause size={12} aria-hidden="true" /> : <Play size={12} aria-hidden="true" />}{paused ? "Resume" : motionEnabled ? "Pause motion" : "Motion reduced"}</button></div>
+    <div className="experience-controls"><span><Orbit size={13} aria-hidden="true" /> NEURAL LAB / SBK</span><button type="button" onClick={toggleMotion} aria-pressed={paused} aria-label={paused ? "Resume animations" : "Pause animations"}>{motionEnabled ? <Pause size={12} aria-hidden="true" /> : <Play size={12} aria-hidden="true" />}{paused ? "Resume" : motionEnabled ? "Pause motion" : "Motion reduced"}</button><ThemePicker /></div>
     <Assistant />
   </>;
 }
