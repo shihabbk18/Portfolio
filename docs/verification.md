@@ -1,5 +1,17 @@
 # Portfolio verification
 
+## 27 October 2026 update: scroll reset and complete project collection
+
+- Added an explicit instant top reset on every pathname change, followed by a frame-level reset after router scroll/focus handling. Explicit section links keep their target.
+- Two regression tests cover transitions across all main routes and the `/about/#skills` exception.
+- Expanded the catalogue from five to 16 complete case studies, using the owner's repository READMEs and implementation details. Fun with Flags, LitWeaver AI, and GestureCam FX are featured on Home.
+- Added catalogue search and field filters, a selector for every gallery project, and bounded rendering of five neighboring 3D cards.
+- Updated Orbit's project knowledge and verified that the existing academic-grade privacy tests still pass.
+- Production export and TypeScript passed. All 22 tests across eight files passed. Direct HTTP checks passed for all 16 generated case-study routes and the featured Fun with Flags links.
+- Manual browser verification was unavailable for this update: the browser tool failed to initialize its kernel assets with a missing-path error, including after a reset. Scroll behavior is covered by the regression tests; physical-browser behavior should be checked when the tool is available again.
+
+## Original multi-page release
+
 Verified 26 October 2026.
 
 **Story:** Visitors move between persistent 3D environments, select a project and open its generated case study, ask Orbit questions grounded in portfolio data, and prepare an email enquiry.

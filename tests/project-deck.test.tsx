@@ -24,7 +24,7 @@ describe("ProjectDeck", () => {
     );
 
     await waitFor(() => expect(screen.getByText("Active study / 03")).toBeInTheDocument());
-    expect(screen.getByText("03 / 05")).toBeInTheDocument();
+    expect(screen.getByText(`03 / ${String(projects.length).padStart(2, "0")}`)).toBeInTheDocument();
   });
 
   it("supports previous and next controls", async () => {
@@ -32,10 +32,10 @@ describe("ProjectDeck", () => {
     render(<ProjectDeck />);
 
     await user.click(screen.getByRole("button", { name: "Show next project" }));
-    expect(screen.getByText("02 / 05")).toBeInTheDocument();
+    expect(screen.getByText(`02 / ${String(projects.length).padStart(2, "0")}`)).toBeInTheDocument();
 
     await user.click(screen.getByRole("button", { name: "Show previous project" }));
-    expect(screen.getByText("01 / 05")).toBeInTheDocument();
+    expect(screen.getByText(`01 / ${String(projects.length).padStart(2, "0")}`)).toBeInTheDocument();
   });
 
   it("changes the active project with arrow keys", () => {
@@ -43,10 +43,10 @@ describe("ProjectDeck", () => {
     const region = screen.getByRole("region", { name: "Featured projects" });
 
     fireEvent.keyDown(region, { key: "ArrowRight" });
-    expect(screen.getByText("02 / 05")).toBeInTheDocument();
+    expect(screen.getByText(`02 / ${String(projects.length).padStart(2, "0")}`)).toBeInTheDocument();
 
     fireEvent.keyDown(region, { key: "ArrowLeft" });
-    expect(screen.getByText("01 / 05")).toBeInTheDocument();
+    expect(screen.getByText(`01 / ${String(projects.length).padStart(2, "0")}`)).toBeInTheDocument();
   });
 
   it("starts with GestureCam FX active and shows the MedSafe disclaimer", async () => {

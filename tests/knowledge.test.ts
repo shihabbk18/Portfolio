@@ -2,6 +2,11 @@ import { describe, expect, it } from "vitest";
 import { answerQuestion } from "@/components/robot/knowledge";
 
 describe("Portfolio knowledge guide", () => {
+  it("answers about newly added projects and links their case studies", () => {
+    expect(answerQuestion("Tell me about Fun with Flags").link?.href).toBe("/work/fun-with-flags/");
+    expect(answerQuestion("What is LitWeaver?").text).toContain("numerical claim");
+    expect(answerQuestion("Tell me about PantryMind").link?.href).toBe("/work/pantrymind-ai/");
+  });
   it("does not disclose academic grades, including during project follow-ups", () => {
     for (const question of ["What is his university CGPA?", "What was his college GPA?", "Tell me his school grades"]) {
       const answer = answerQuestion(question, "model-dna");

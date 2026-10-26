@@ -58,7 +58,7 @@ export function ProjectDeck() {
       { x: -8, y: 80, rotate: -0.75, scale: 0.94, opacity: 0.52 },
     ];
     return {
-      ...(isMobile ? mobile[position] : desktop[position]),
+      ...(isMobile ? mobile[Math.min(position, mobile.length - 1)] : desktop[Math.min(position, desktop.length - 1)]),
       zIndex: projects.length - position,
     };
   };

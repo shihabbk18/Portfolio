@@ -1,5 +1,5 @@
 import { about, additionalResearch, education, identity, languages, research } from "@/data/portfolio";
-import { additionalProjects, projects } from "@/data/projects";
+import { projects } from "@/data/projects";
 import { skillGroups } from "@/data/skills";
 
 export type Answer = { text: string; link?: { label: string; href: string }; projectId?: string };
@@ -10,6 +10,17 @@ const aliases: Record<string, string[]> = {
   "model-dna": ["modeldna", "model dna", "model-dna"],
   "sign-sense": ["sign sense", "sign-sense", "asl", "sign language"],
   "medsafe-lens": ["medsafe", "medicine safety", "medsafe lens"],
+  "fun-with-flags": ["fun with flags", "funny flag", "fun with flag", "flag game", "flags"],
+  "litweaver-ai": ["litweaver", "lit weaver"],
+  "pantrymind-ai": ["pantrymind", "pantry mind"],
+  "optiroute-ai": ["optiroute", "opti route"],
+  "mediguide-bd": ["mediguide", "medi guide"],
+  "face-skin-lens": ["faceskin", "face skin", "skin screener", "skin-xai"],
+  "drowsiness-ai": ["drowsiness", "drowsy", "eye state"],
+  "multimodal-ai": ["multimodal app", "multimodal ai"],
+  "image-caption-generator": ["image caption", "caption generator"],
+  "movie-data-analysis": ["movie data", "movie analysis"],
+  "star-chicken": ["star chicken", "restaurant website"],
 };
 
 export function answerQuestion(question: string, previousProject?: string): Answer {
@@ -27,8 +38,6 @@ export function answerQuestion(question: string, previousProject?: string): Answ
       : `${project.title}: ${project.description}\n\n${project.outcome}${project.disclaimer ? `\n\n${project.disclaimer}` : ""}`,
     link: internal("Read the case study", `/work/${project.id}/`), projectId: project.id,
   };
-  const extraProject = additionalProjects.find((item) => q.includes(item.title.toLowerCase()) || (q.includes("flags") && item.title === "Fun with Flags"));
-  if (extraProject) return { text: `${extraProject.title}: ${extraProject.description}`, link: internal("Explore the work", "/work/") };
   if (/hyptis|phytochemical|pharmacological|in review/.test(q)) return { text: `${additionalResearch.title}. Status: ${additionalResearch.status}; role: ${additionalResearch.role}. ${additionalResearch.contribution}`, link: internal("Research record", "/research/") };
   if (/\b(research|publication|paper|mango|thesis|grad-cam)\b/.test(q)) return { text: `${research.title}. ${research.summary}\n\nHis contribution: ${research.contribution}`, link: internal("Explore research", "/research/") };
   if (/\b(education|degree|university|graduat\w*|study|studied)\b/.test(q)) return { text: `${education.degree}, ${education.university} (${education.period}). ${education.credits} credits completed. Thesis: ${education.thesis}.`, link: internal("Education & background", "/about/") };

@@ -9,7 +9,7 @@ A multi-page portfolio for an aspiring AI researcher and computer-vision develop
 - `/`: neural-core hero and introductions to the portfolio.
 - `/about/`: background, education, language proficiency, skills, and research interests.
 - `/work/`: an interactive 3D project carousel, keyboard controls, and the complete project index.
-- `/work/[slug]/`: five statically generated case studies with problem, approach, outcome, tools, features, and verified links.
+- `/work/[slug]/`: 16 statically generated case studies with problem, approach, outcome, tools, features, and verified links.
 - `/research/`: research contributions, published work, and a clearly labelled manuscript under review.
 - `/contact/`: a communication-terminal scene and validated email-draft form.
 
@@ -22,6 +22,10 @@ Next.js App Router, React 19, TypeScript, Tailwind CSS 4, Three.js, React Three 
 The root layout mounts `ExperienceShell` once. Its provider preserves the selected project, motion setting, and assistant state across client navigation. A dynamically imported world canvas contains five procedural environments. CameraRig uses GSAP for horizontal route travel and ScrollTrigger for depth, with cleanup on route changes. A small independent robot canvas keeps Orbit anchored above page content without remounting the main world.
 
 `components/experience/` contains the provider, WebGL boundary, renderer, scenes, and camera controller. `components/robot/` contains the procedural robot, chat interface, and knowledge retrieval. `components/work-gallery.tsx` connects accessible carousel controls to the 3D gallery. `app/experience.css` styles the multi-page interface; the base visual system remains in `app/globals.css` and `app/digital.css`.
+
+## Navigation and project coverage
+
+Changing pages resets the document to the top immediately, including after scrolling on the previous page. Explicit section links such as `/about/#skills` still reach their target. The gallery includes all 16 original project repositories, with full case studies, field filters, and text search. GestureCam FX, LitWeaver AI, and Fun with Flags are featured on the home page. Only five neighboring 3D cards render at once to keep the larger collection responsive.
 
 ## Orbit portfolio guide
 
@@ -67,7 +71,7 @@ Keep claims grounded in the supplied CV and verified project records. Generate c
 
 ## Validation
 
-Vitest and Testing Library cover navigation, project interactions, contact validation, assistant focus and chat behavior, knowledge answers and unknown-information handling, and animation controls. Production static exports must include all page routes and five case studies. Verify desktop/mobile layouts and real WebGL rendering before publication.
+Vitest and Testing Library cover navigation, project interactions, contact validation, assistant focus and chat behavior, knowledge answers and unknown-information handling, and animation controls. Production static exports must include all page routes and 16 case studies. Verify desktop/mobile layouts and real WebGL rendering before publication.
 
 ## License
 

@@ -38,24 +38,34 @@ function Timeline() {
   </group>;
 }
 
-function Gallery() {
+function GalleryCard({ index, slot }: { index: number; slot: number }) {
   const group = useRef<Group>(null);
-  const { selectedProject, motionEnabled } = useExperience();
+  const { motionEnabled } = useExperience();
+  const angle = slot * 0.57;
+  const x = Math.sin(angle) * 2.7;
+  const z = Math.cos(angle) * 2.7 - 2.1;
+  const color = colors[index % colors.length];
   useFrame((_, delta) => {
     if (!group.current) return;
-    const target = -selectedProject / projects.length * Math.PI * 2;
-    group.current.rotation.y = motionEnabled ? MathUtils.damp(group.current.rotation.y, target, 4, delta) : target;
+    group.current.position.x = motionEnabled ? MathUtils.damp(group.current.position.x, x, 5, delta) : x;
+    group.current.position.z = motionEnabled ? MathUtils.damp(group.current.position.z, z, 5, delta) : z;
+    group.current.rotation.y = motionEnabled ? MathUtils.damp(group.current.rotation.y, angle, 5, delta) : angle;
   });
-  return <group position={[0, 0, -1.6]}><group ref={group}>
-    {projects.map((project, index) => {
-      const angle = index / projects.length * Math.PI * 2;
-      return <group key={project.id} position={[Math.sin(angle) * 2.2, 0, Math.cos(angle) * 2.2]} rotation={[0, angle, 0]}>
-        <mesh><boxGeometry args={[1.4, 1.8, 0.08]} /><meshStandardMaterial color={index === selectedProject ? "#193b53" : "#101d32"} metalness={0.6} roughness={0.4} /></mesh>
-        <mesh position={[0, 0.15, 0.12]} rotation={[0.4, 0.3, 0]}><torusKnotGeometry args={[0.3, 0.07, 64, 8, index + 2, 3]} /><meshStandardMaterial color={colors[index]} emissive={colors[index]} emissiveIntensity={0.45} metalness={0.6} roughness={0.25} /></mesh>
-        {[0, 1, 2].map((line) => <mesh key={line} position={[-0.1, -0.5 - line * 0.12, 0.07]}><boxGeometry args={[0.9 - line * 0.15, 0.025, 0.01]} /><meshBasicMaterial color={colors[index]} transparent opacity={0.6} /></mesh>)}
-      </group>;
-    })}
-  </group></group>;
+  return <group ref={group}>
+    <mesh><boxGeometry args={[1.4, 1.8, 0.08]} /><meshStandardMaterial color={slot === 0 ? "#193b53" : "#101d32"} metalness={0.6} roughness={0.4} /></mesh>
+    <mesh position={[0, 0.15, 0.12]} rotation={[0.4, 0.3, 0]}><torusKnotGeometry args={[0.3, 0.07, 64, 8, index % 5 + 2, 3]} /><meshStandardMaterial color={color} emissive={color} emissiveIntensity={0.45} metalness={0.6} roughness={0.25} /></mesh>
+    {[0, 1, 2].map((line) => <mesh key={line} position={[-0.1, -0.5 - line * 0.12, 0.07]}><boxGeometry args={[0.9 - line * 0.15, 0.025, 0.01]} /><meshBasicMaterial color={color} transparent opacity={0.6} /></mesh>)}
+  </group>;
+}
+
+function Gallery() {
+  const { selectedProject } = useExperience();
+  // Keep every project selectable, but only render the nearby cards.
+  return <group>{projects.map((project, index) => {
+    const relative = (index - selectedProject + projects.length) % projects.length;
+    const slot = relative > projects.length / 2 ? relative - projects.length : relative;
+    return Math.abs(slot) <= 2 ? <GalleryCard key={project.id} index={index} slot={slot} /> : null;
+  })}</group>;
 }
 
 function Terminal() {
