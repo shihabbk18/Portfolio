@@ -28,7 +28,7 @@ describe("Website colour themes", () => {
   it("ignores an unsupported stored theme", () => {
     localStorage.setItem(themeStorageKey, "not-a-theme");
     render(<Picker />);
-    expect(document.documentElement).toHaveAttribute("data-theme", "midnight");
+    expect(document.documentElement).toHaveAttribute("data-theme", "white");
   });
   it("still changes colours when browser storage is unavailable", async () => {
     vi.spyOn(Storage.prototype, "setItem").mockImplementation(() => { throw new Error("Storage unavailable"); });

@@ -27,6 +27,8 @@ export function answerQuestion(question: string, previousProject?: string): Answ
   const q = question.toLowerCase().replace(/[’']/g, "").trim().slice(0, 600);
   const unknown = { text: "I don’t have verified information about that. I can help with Shihab’s education, research, skills, projects, CV, and contact details.", link: internal("Contact Shihab", "/contact/") };
   if (/\b(cgpa|gpa|grades?|marks?|academic scores?)\b/.test(q)) return { text: "Academic grades aren’t shared on this portfolio. I can tell you about Shihab’s education, research, and projects.", link: internal("Education & background", "/about/") };
+  if (/\blinked\s?in\b/.test(q)) return { text: "You can find Shihab’s professional profile on LinkedIn.", link: { label: "Shihab on LinkedIn", href: identity.linkedin } };
+  if (/\bresearch\s?gate\b/.test(q)) return { text: "You can find Shihab’s research profile on ResearchGate.", link: { label: "Shihab on ResearchGate", href: identity.researchgate } };
   if (/\b(salary|age|birthday|married|password|secret|phone|address|employer|visa)\b/.test(q)) return unknown;
   if (/\b(hello|hi|hey|help)\b/.test(q) && q.split(/\s+/).length < 5) return { text: "Hi! I’m Orbit, Shihab’s portfolio guide. Ask about his research, education, skills, or a project such as GestureCam FX or ModelDNA." };
   const namedProject = projects.find((project) => (aliases[project.id] ?? [project.title.toLowerCase()]).some((alias) => q.includes(alias)));

@@ -1,5 +1,5 @@
 export const siteUrl =
-  (process.env.NEXT_PUBLIC_SITE_URL ?? "https://shihabbk18.github.io/Portfolio").replace(
+  (process.env.NEXT_PUBLIC_SITE_URL ?? "https://shihabbk18.github.io/PORTFOLIO-").replace(
     /\/$/,
     "",
   );
@@ -18,6 +18,8 @@ export const identity = {
   location: "Chattogram, Bangladesh",
   email: "shihabbk18@gmail.com",
   github: "https://github.com/shihabbk18",
+  linkedin: "https://www.linkedin.com/in/shihab-bin-kader-a30841409/",
+  researchgate: "https://www.researchgate.net/profile/Shihab-Bin-Kader-2",
   cv: withBasePath("/Shihab-Bin-Kader-CV.pdf"),
 } as const;
 

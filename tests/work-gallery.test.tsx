@@ -22,7 +22,7 @@ describe("Spatial project gallery", () => {
     expect(screen.getByRole("link", { name: "Read case study" }).getAttribute("href")?.replace(/\/$/, "")).toBe("/work/gesturecam-fx");
     await user.selectOptions(screen.getByRole("combobox", { name: "Choose a project" }), "2");
     expect(screen.getByRole("link", { name: "Read case study" }).getAttribute("href")?.replace(/\/$/, "")).toBe("/work/model-dna");
-    fireEvent.keyDown(screen.getByRole("region", { name: "3D project gallery" }), { key: "ArrowRight" });
+    fireEvent.keyDown(screen.getByRole("region", { name: "Project gallery" }), { key: "ArrowRight" });
     expect(screen.getByRole("link", { name: "Read case study" }).getAttribute("href")?.replace(/\/$/, "")).toBe("/work/sign-sense");
   });
 });

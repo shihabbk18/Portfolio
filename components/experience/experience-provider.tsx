@@ -24,12 +24,12 @@ export function ExperienceProvider({ children }: { children: ReactNode }) {
   const [visible, setVisible] = useState(true);
   const [selectedProject, selectProject] = useState(0);
   const [assistantOpen, setAssistantOpen] = useState(false);
-  const [theme, updateTheme] = useState<ThemeId>("midnight");
+  const [theme, updateTheme] = useState<ThemeId>("white");
 
   useEffect(() => {
     let saved: unknown = document.documentElement.dataset.theme;
     try { saved = localStorage.getItem(themeStorageKey) ?? saved; } catch { /* Storage is optional. */ }
-    const initialTheme = isTheme(saved) ? saved : "midnight";
+    const initialTheme = isTheme(saved) ? saved : "white";
     updateTheme(initialTheme);
     document.documentElement.dataset.theme = initialTheme;
     try { setPaused(localStorage.getItem("portfolio-motion-paused") === "true"); } catch { /* Storage is optional. */ }

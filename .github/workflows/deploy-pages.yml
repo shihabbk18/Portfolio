@@ -16,8 +16,8 @@ concurrency:
 
 env:
   NEXT_STATIC_EXPORT: "true"
-  NEXT_PUBLIC_BASE_PATH: /Portfolio
-  NEXT_PUBLIC_SITE_URL: https://shihabbk18.github.io/Portfolio
+  NEXT_PUBLIC_BASE_PATH: /PORTFOLIO-
+  NEXT_PUBLIC_SITE_URL: https://shihabbk18.github.io/PORTFOLIO-
 
 jobs:
   build:
@@ -45,6 +45,32 @@ jobs:
 
       - name: Build static portfolio
         run: pnpm build:next
+
+      - name: Check out existing GestureCam compatibility demo
+        uses: actions/checkout@v6
+        with:
+          repository: shihabbk18/gesturecam-fx
+          ref: 938349d366644f4a3f77c71e73aebef38e0261be
+          path: .legacy-gesturecam
+          persist-credentials: false
+
+      - name: Set up Node.js for the compatibility demo
+        uses: actions/setup-node@v6
+        with:
+          node-version: 24
+          cache: npm
+          cache-dependency-path: .legacy-gesturecam/frontend/package-lock.json
+
+      - name: Preserve the existing GestureCam demo address
+        working-directory: .legacy-gesturecam/frontend
+        run: |
+          npm ci
+          npm run lint
+          npm test
+          npm run build
+          mkdir -p ../../out/gesturecam-fx
+          cp -R dist/. ../../out/gesturecam-fx/
+          touch ../../out/.nojekyll
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v4

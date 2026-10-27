@@ -1,17 +1,18 @@
 import type { Metadata } from "next";
-import { Inter, Manrope } from "next/font/google";
+import { Poppins, Montserrat } from "next/font/google";
 import { ExperienceShell } from "@/components/experience/experience-shell";
 import { identity, siteUrl, withBasePath } from "@/data/portfolio";
 import { themeBootstrap } from "@/data/themes";
 import "./globals.css";
 
-const inter = Inter({
+const inter = Poppins({
   variable: "--font-inter",
   subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
   display: "swap",
 });
 
-const manrope = Manrope({
+const manrope = Montserrat({
   variable: "--font-manrope",
   subsets: ["latin"],
   display: "swap",
@@ -81,13 +82,13 @@ const personSchema = {
     "@type": "CollegeOrUniversity",
     name: "East Delta University",
   },
-  sameAs: [identity.github],
+  sameAs: [identity.github, identity.linkedin, identity.researchgate],
   knowsAbout: ["Computer Vision", "Deep Learning", "Explainable AI", "Multimodal Learning"],
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en" data-theme="white" suppressHydrationWarning>
       <head><script dangerouslySetInnerHTML={{ __html: themeBootstrap }} /></head>
       <body className={`${inter.variable} ${manrope.variable}`}>
         <a className="skip-link" href="#main-content">Skip to main content</a>

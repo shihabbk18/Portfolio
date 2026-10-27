@@ -1,7 +1,7 @@
 export const themes = [
   { id: "midnight", label: "Midnight", background: "#060a14", accent: "#63e7f3", secondary: "#a99aff" },
   { id: "black", label: "Black", background: "#080909", accent: "#a8f0cf", secondary: "#c3c7d4" },
-  { id: "white", label: "White", background: "#f7fafc", accent: "#087e8b", secondary: "#7254b6" },
+  { id: "white", label: "White", background: "#ffffff", accent: "#a293ff", secondary: "#00cbd9" },
   { id: "violet", label: "Violet", background: "#100b20", accent: "#d0b1ff", secondary: "#7ee8e1" },
 ] as const;
 
@@ -17,4 +17,4 @@ export function sceneColors(theme: ThemeId): string[] {
 }
 
 // Runs before hydration so a returning visitor does not see the wrong colour scheme.
-export const themeBootstrap = `try{var t=localStorage.getItem('${themeStorageKey}');document.documentElement.dataset.theme=['midnight','black','white','violet'].includes(t)?t:'midnight'}catch(e){document.documentElement.dataset.theme='midnight'}`;
+export const themeBootstrap = `try{var t=localStorage.getItem('${themeStorageKey}');document.documentElement.dataset.theme=['midnight','black','white','violet'].includes(t)?t:'white'}catch(e){document.documentElement.dataset.theme='white'}`;

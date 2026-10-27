@@ -1,6 +1,6 @@
 "use client";
 
-import { ArrowUpRight, Check, Clipboard, Github, Mail } from "lucide-react";
+import { ArrowUpRight, Check, Clipboard, Github, Linkedin, BookOpen, Mail } from "lucide-react";
 import { FormEvent, useState } from "react";
 import { identity } from "@/data/portfolio";
 
@@ -67,6 +67,8 @@ export function Contact() {
               GitHub
               <ArrowUpRight aria-hidden="true" size={15} />
             </a>
+            <a className="button button--secondary" href={identity.linkedin} target="_blank" rel="noreferrer"><Linkedin aria-hidden="true" size={17} />LinkedIn<ArrowUpRight aria-hidden="true" size={15} /></a>
+            <a className="button button--secondary" href={identity.researchgate} target="_blank" rel="noreferrer"><BookOpen aria-hidden="true" size={17} />ResearchGate<ArrowUpRight aria-hidden="true" size={15} /></a>
             <button className="copy-email" type="button" onClick={copyEmail}>
               {copied ? <Check aria-hidden="true" size={16} /> : <Clipboard aria-hidden="true" size={16} />}
               {copied ? "Email copied" : "Copy email"}

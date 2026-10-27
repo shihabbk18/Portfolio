@@ -47,3 +47,24 @@ There are no chat or contact API requests, database writes, or server credential
 ## Scope of checks
 
 Browser checks covered desktop rendering, mobile navigation and chat, gallery selection, a case-study transition, history persistence, global pause, and contact errors. The operating system's reduced-motion setting and device-specific GPU limits were not exhaustively tested on physical devices. WebGL error boundaries and accessible HTML provide fallbacks.
+
+
+## Clay design preview — 2026-10-28
+
+Local-only revision requested by the owner; no commit, push, or deployment performed. Adapted the MIT reference at https://3d-portfolio.derikn.com/ with attribution and license retained. White is default; existing saved theme preferences remain respected.
+
+Production static export passed for all 25 generated pages, including 16 case studies. Existing 25 tests passed; two new home tests passed; the affected gallery tests were rerun successfully after adding artwork. Browser checked at 1440px and 390px: home, research tab, About top reset, Black/White switching, mobile navigation, project search, Fun with Flags case study, and opening Orbit. No browser console errors were recorded during the initial browser flow. All above-the-fold artwork loaded; below-fold images load lazily.
+
+Desktop screenshot: outputs/clay-desktop.jpg. Local preview: http://127.0.0.1:4173/. Source remains uncommitted pending user design approval.
+
+
+## Photo-based portrait — 2026-10-28
+Replaced the generic character in all live ClayIllustration instances with an identity-preserving 3D-style portrait generated from the owner-supplied photograph using the built-in image tool. Transparent 1254×1254 PNG retained in public/clay/shihab-3d-portrait.png. Full prompt recorded in docs/portrait-generation.md. Original photograph unchanged. Production static build passed; both affected home tests passed. Browser confirmed the portrait loaded in both home placements, no old avatar images remained mounted, the new float pauses with the motion control, and the 390px layout has no horizontal overflow. Screenshot: outputs/shihab-portrait-desktop.jpg. No commit, push, or deployment performed; still awaiting design approval.
+
+
+## Selected leather portrait and social profiles — 2026-10-28
+Used the owner-supplied Confident 3D Portrait in Leather.png unchanged (source and project copy SHA256 match). Portrait uses CSS framing with existing entrance, float, and pointer tilt. Added canonical LinkedIn and ResearchGate URLs to the home connections, Contact page, footer, Person sameAs metadata, and local assistant profile answers. Removed tracking query strings from the supplied profile URLs. Production static build passed, with 10 affected tests passing. Browser confirmed the hero image loaded and rendered, and all home/footer social links have the supplied canonical destinations. Screenshot: outputs/leather-portrait-desktop.jpg. All work remains local and uncommitted pending design approval.
+
+
+## Release to PORTFOLIO- — 2026-10-28
+Owner approved publication to shihabbk18/PORTFOLIO-. Removed the on-page design credit and footer design copy; retained the third-party MIT notice. Switched the portrait to a PNG cutout with genuine alpha transparency and removed the container background. Production static export passed at /PORTFOLIO- and all 27 tests passed. Workflow preserves the existing nested GestureCam demo. README rewritten for the published repository.

@@ -3,7 +3,6 @@
 import { type ReactNode } from "react";
 import { Pause, Play, Orbit } from "lucide-react";
 import { ExperienceProvider, useExperience } from "./experience-provider";
-import { SceneLoader } from "./scene-loader";
 import { Assistant } from "@/components/robot/assistant";
 import { Navigation } from "@/components/navigation";
 import { Footer } from "@/components/footer";
@@ -14,10 +13,9 @@ function ShellContent({ children }: { children: ReactNode }) {
   const { motionEnabled, paused, toggleMotion } = useExperience();
   return <>
     <RouteScrollReset />
-    <SceneLoader />
     <Navigation />
     <div className="experience-content">{children}<Footer /></div>
-    <div className="experience-controls"><span><Orbit size={13} aria-hidden="true" /> NEURAL LAB / SBK</span><button type="button" onClick={toggleMotion} aria-pressed={paused} aria-label={paused ? "Resume animations" : "Pause animations"}>{motionEnabled ? <Pause size={12} aria-hidden="true" /> : <Play size={12} aria-hidden="true" />}{paused ? "Resume" : motionEnabled ? "Pause motion" : "Motion reduced"}</button><ThemePicker /></div>
+    <div className="experience-controls"><span><Orbit size={13} aria-hidden="true" /> SBK STUDIO</span><button type="button" onClick={toggleMotion} aria-pressed={paused} aria-label={paused ? "Resume animations" : "Pause animations"}>{motionEnabled ? <Pause size={12} aria-hidden="true" /> : <Play size={12} aria-hidden="true" />}{paused ? "Resume" : motionEnabled ? "Pause motion" : "Motion reduced"}</button><ThemePicker /></div>
     <Assistant />
   </>;
 }

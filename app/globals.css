@@ -2,6 +2,7 @@
 @import "./digital.css";
 @import "./experience.css";
 @import "./themes.css";
+@import "./clay.css";
 
 :root {
   --bg: #060a14;

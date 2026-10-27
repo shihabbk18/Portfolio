@@ -56,6 +56,7 @@ export function Navigation() {
               <span>{item.label}</span>
             </Link>
           ))}
+          <a className="clay-nav-resume" href={identity.cv} onClick={closeMenu}>Resume</a>
           <a
             className="site-nav__github"
             href={identity.github}
