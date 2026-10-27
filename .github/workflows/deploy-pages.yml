@@ -1,0 +1,63 @@
+name: Restore GestureCam demo
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: github-pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check out tested GestureCam source
+        uses: actions/checkout@v4
+        with:
+          repository: shihabbk18/gesturecam-fx
+          ref: 938349d366644f4a3f77c71e73aebef38e0261be
+          path: source
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+          cache-dependency-path: source/frontend/package-lock.json
+      - uses: actions/configure-pages@v5
+      - name: Install locked dependencies
+        working-directory: source/frontend
+        run: npm ci
+      - name: Verify and build GestureCam
+        working-directory: source/frontend
+        run: |
+          npm run lint
+          npm test
+          npm run build
+      - name: Assemble compatibility site
+        run: |
+          mkdir -p _site/gesturecam-fx
+          cp public/index.html _site/index.html
+          cp -R source/frontend/dist/. _site/gesturecam-fx/
+          touch _site/.nojekyll
+          test -f _site/gesturecam-fx/index.html
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Publish restored demo
+        id: deployment
+        uses: actions/deploy-pages@v4
