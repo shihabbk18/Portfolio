@@ -1,6 +1,6 @@
 # Shihab Bin Kader — Portfolio
 
-[Live website](https://shihabbk18.github.io/PORTFOLIO-/) · [LinkedIn](https://www.linkedin.com/in/shihab-bin-kader-a30841409/) · [ResearchGate](https://www.researchgate.net/profile/Shihab-Bin-Kader-2)
+[Live website](https://shihabbk18.github.io/portfolio-/) · [LinkedIn](https://www.linkedin.com/in/shihab-bin-kader-a30841409/) · [ResearchGate](https://www.researchgate.net/profile/Shihab-Bin-Kader-2)
 
 A personal portfolio showcasing computer vision, explainable AI, research contributions, and practical software projects. Built with Next.js, React, TypeScript, Tailwind CSS, Motion, and React Three Fiber.
 
@@ -55,11 +55,10 @@ The workflow supplies:
 
 ```text
 NEXT_STATIC_EXPORT=true
-NEXT_PUBLIC_BASE_PATH=/PORTFOLIO-
-NEXT_PUBLIC_SITE_URL=https://shihabbk18.github.io/PORTFOLIO-
+NEXT_PUBLIC_BASE_PATH=/portfolio-
+NEXT_PUBLIC_SITE_URL=https://shihabbk18.github.io/portfolio-
 ```
 
-The existing compatibility demo remains available at [GestureCam FX](https://shihabbk18.github.io/PORTFOLIO-/gesturecam-fx/). Its workflow builds the pinned source revision before copying it beside the portfolio export.
 
 ## License and acknowledgements
 

@@ -68,3 +68,6 @@ Used the owner-supplied Confident 3D Portrait in Leather.png unchanged (source a
 
 ## Release to PORTFOLIO- — 2026-10-28
 Owner approved publication to shihabbk18/PORTFOLIO-. Removed the on-page design credit and footer design copy; retained the third-party MIT notice. Switched the portrait to a PNG cutout with genuine alpha transparency and removed the container background. Production static export passed at /PORTFOLIO- and all 27 tests passed. Workflow preserves the existing nested GestureCam demo. README rewritten for the published repository.
+
+
+Owner correction: publish this repository as lowercase portfolio-, serving only the portfolio. Removed the GestureCam compatibility build and nested demo path from the deployment. GestureCam remains an external project in its own repository.

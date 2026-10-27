@@ -1,5 +1,5 @@
 export const siteUrl =
-  (process.env.NEXT_PUBLIC_SITE_URL ?? "https://shihabbk18.github.io/PORTFOLIO-").replace(
+  (process.env.NEXT_PUBLIC_SITE_URL ?? "https://shihabbk18.github.io/portfolio-").replace(
     /\/$/,
     "",
   );
