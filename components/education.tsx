@@ -57,12 +57,16 @@ export function Education() {
                 ))}
               </ol>
               <div className="education-details">
-                <h4>Language proficiency</h4>
-                <p>{languages.ielts}</p>
-                <p>{languages.scores}</p>
-                <p>{languages.proficiency}</p>
-                <h4>Community & leadership</h4>
-                <ul>{activities.map((activity) => <li key={activity}>{activity}</li>)}</ul>
+                <section className="education-details__group" aria-labelledby="language-heading">
+                  <h4 id="language-heading">Language proficiency</h4>
+                  <p>{languages.ielts}</p>
+                  <p>{languages.scores}</p>
+                  <p>{languages.proficiency}</p>
+                </section>
+                <section className="education-details__group" aria-labelledby="community-heading">
+                  <h4 id="community-heading">Community &amp; leadership</h4>
+                  <ul>{activities.map((activity) => <li key={activity}>{activity}</li>)}</ul>
+                </section>
               </div>
             </div>
           </Reveal>
