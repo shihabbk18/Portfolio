@@ -30,7 +30,7 @@ export function answerQuestion(question: string, previousProject?: string): Answ
   if (/\blinked\s?in\b/.test(q)) return { text: "You can find Shihab’s professional profile on LinkedIn.", link: { label: "Shihab on LinkedIn", href: identity.linkedin } };
   if (/\bresearch\s?gate\b/.test(q)) return { text: "You can find Shihab’s research profile on ResearchGate.", link: { label: "Shihab on ResearchGate", href: identity.researchgate } };
   if (/\b(salary|age|birthday|married|password|secret|phone|address|employer|visa)\b/.test(q)) return unknown;
-  if (/\b(hello|hi|hey|help)\b/.test(q) && q.split(/\s+/).length < 5) return { text: "Hi! I’m Orbit, Shihab’s portfolio guide. Ask about his research, education, skills, or a project such as GestureCam FX or ModelDNA." };
+  if (/\b(hello|hi|hey|help)\b/.test(q) && q.split(/\s+/).length < 5) return { text: "Hi! I’m Shihab Bot, Shihab’s portfolio guide. Ask about his research, education, skills, or a project such as GestureCam FX or ModelDNA." };
   const namedProject = projects.find((project) => (aliases[project.id] ?? [project.title.toLowerCase()]).some((alias) => q.includes(alias)));
   const followUp = /\b(it|its|that|this|technologies|stack|tools|built|outcome|result)\b/.test(q);
   const project = namedProject ?? (followUp ? projects.find((item) => item.id === previousProject) : undefined);

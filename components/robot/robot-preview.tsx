@@ -1,11 +1,11 @@
 "use client";
 
-import { Canvas } from "@react-three/fiber";
-import { Robot } from "./robot";
+import Image from "next/image";
+import { withBasePath } from "@/data/portfolio";
 
 export default function RobotPreview(props: { attentive: boolean; speaking: boolean; motionEnabled: boolean }) {
-  return <Canvas dpr={1} frameloop={props.motionEnabled ? "always" : "demand"} camera={{ position: [0, 0.1, 3.6], fov: 42 }} gl={{ alpha: true, antialias: false, powerPreference: "low-power" }} fallback={<span className="robot-fallback" aria-hidden="true">◉‿◉</span>} style={{ pointerEvents: "none" }}>
-    <ambientLight intensity={1.5} /><pointLight position={[2, 3, 4]} intensity={18} color="#b7f2ff" />
-    <Robot {...props} />
-  </Canvas>;
+  return <span className={`qa-mascot ${props.attentive ? "qa-mascot--attentive" : ""} ${props.speaking ? "qa-mascot--speaking" : ""} ${props.motionEnabled ? "" : "qa-mascot--paused"}`}>
+    <span className="qa-mascot__glow" />
+    <Image src={withBasePath("/mascot/shihab-bot.png")} alt="" width={1254} height={1254} sizes="(max-width: 560px) 112px, 140px" className="qa-mascot__image" />
+  </span>;
 }

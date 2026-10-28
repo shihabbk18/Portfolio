@@ -237,3 +237,29 @@ html[data-theme] .case-study { border-radius: 24px; background: var(--surface-so
   .clay-portrait img, .clay-shape img, .clay-connect__halo, .clay-note > img { animation: none; }
   .clay-portrait, .clay-button, .clay-project, .clay-social, .clay-artwork__browser { transition: none; }
 }
+
+/* Supplied Q&A mascot uses the existing assistant's open/reply state. */
+html[data-theme] .robot-launcher { width: 140px; height: 170px; }
+html[data-theme] .robot-viewport { inset: 0 0 25px; filter: none; }
+html[data-theme] .robot-launcher__label { padding: 5px 8px; font: 500 10px/1.4 var(--font-inter), sans-serif; }
+html[data-theme] .assistant-panel { bottom: 195px; }
+.qa-mascot { position: relative; display: block; width: 100%; height: 100%; animation: mascotFloat 5s ease-in-out infinite; }
+.qa-mascot__image { position: relative; width: 100%; height: 100%; object-fit: contain; filter: drop-shadow(0 5px 5px #0002); transition: transform .3s, filter .3s; }
+.qa-mascot__glow { position: absolute; inset: 15% 12% 12%; border-radius: 50%; background: radial-gradient(ellipse, #39d9ff26, transparent 70%); opacity: 0; transition: opacity .3s; }
+.qa-mascot--attentive .qa-mascot__image { transform: scale(1.05) rotate(-3deg); filter: drop-shadow(0 0 8px #29cfff66); }
+.qa-mascot--attentive .qa-mascot__glow { opacity: 1; }
+.qa-mascot--speaking .qa-mascot__glow { opacity: 1; animation: mascotReply .45s ease-in-out infinite alternate; }
+.qa-mascot--speaking .qa-mascot__image { filter: drop-shadow(0 0 11px #29cfffaa); }
+.robot-launcher:hover .qa-mascot__image { transform: scale(1.06) rotate(3deg); }
+.qa-mascot--paused, .qa-mascot--paused .qa-mascot__glow { animation: none; }
+@keyframes mascotFloat { 0%,100% { transform: translateY(0) rotate(-1deg); } 50% { transform: translateY(-7px) rotate(1deg); } }
+@keyframes mascotReply { from { transform: scale(.92); opacity: .4; } to { transform: scale(1.14); opacity: 1; } }
+@media (max-width: 560px) {
+  html[data-theme] .robot-launcher { width: 112px; height: 140px; right: 10px; bottom: 10px; }
+  html[data-theme] .robot-launcher__label { font-size: 9px; }
+  html[data-theme] .assistant-panel { bottom: 165px; max-height: min(650px, calc(100svh - 185px)); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .qa-mascot, .qa-mascot__glow { animation: none !important; }
+  .qa-mascot__image, .qa-mascot__glow { transition: none; }
+}

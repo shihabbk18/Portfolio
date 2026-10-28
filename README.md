@@ -2,7 +2,7 @@
 
 [Live website](https://shihabbk18.github.io/Portfolio/) · [LinkedIn](https://www.linkedin.com/in/shihab-bin-kader-a30841409/) · [ResearchGate](https://www.researchgate.net/profile/Shihab-Bin-Kader-2)
 
-A personal portfolio showcasing computer vision, explainable AI, research contributions, and practical software projects. Built with Next.js, React, TypeScript, Tailwind CSS, Motion, and React Three Fiber.
+A personal portfolio showcasing computer vision, explainable AI, research contributions, and practical software projects. Built with Next.js, React, TypeScript, Tailwind CSS, and Motion.
 
 ## Features
 
@@ -11,7 +11,7 @@ A personal portfolio showcasing computer vision, explainable AI, research contri
 - 16 project case studies, including GestureCam FX, LitWeaver AI, and Fun with Flags.
 - Project search, field filters, and keyboard navigation.
 - White, Black, Midnight, and Violet themes with remembered preferences.
-- Orbit, an animated 3D guide that answers from the portfolio’s local knowledge base.
+- Shihab Bot, an animated Q&A mascot that answers from the portfolio’s local knowledge base.
 - Motion controls, reduced-motion support, and accessible HTML content.
 - Downloadable CV and a validated contact form that opens an email draft.
 
@@ -37,7 +37,7 @@ pnpm build:next
 | --- | --- |
 | `app/` | Routes, metadata, and styles |
 | `components/clay/` | Animated portrait and home-page presentation |
-| `components/robot/` | 3D guide, chat UI, and local answers |
+| `components/robot/` | Mascot, chat UI, and local answers |
 | `components/experience/` | Shared state, colour themes, and motion controls |
 | `data/portfolio.ts` | Biography, education, research, and profile links |
 | `data/projects.ts` | Project content and case-study routes |
@@ -45,7 +45,7 @@ pnpm build:next
 | `public/clay/` | Portrait and decorative assets |
 | `public/Shihab-Bin-Kader-CV.pdf` | Downloadable CV |
 
-Orbit uses local keyword matching and verified portfolio content. Chat is not sent to an external AI service. The contact form opens the visitor’s email app; it does not send or store messages.
+Shihab Bot uses local keyword matching and verified portfolio content. Chat is not sent to an external AI service. The contact form opens the visitor’s email app; it does not send or store messages.
 
 ## Deployment
 
