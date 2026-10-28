@@ -1,6 +1,6 @@
 # Shihab Bin Kader — Portfolio
 
-[Live website](https://shihabbk18.github.io/portfolio-/) · [LinkedIn](https://www.linkedin.com/in/shihab-bin-kader-a30841409/) · [ResearchGate](https://www.researchgate.net/profile/Shihab-Bin-Kader-2)
+[Live website](https://shihabbk18.github.io/Portfolio/) · [LinkedIn](https://www.linkedin.com/in/shihab-bin-kader-a30841409/) · [ResearchGate](https://www.researchgate.net/profile/Shihab-Bin-Kader-2)
 
 A personal portfolio showcasing computer vision, explainable AI, research contributions, and practical software projects. Built with Next.js, React, TypeScript, Tailwind CSS, Motion, and React Three Fiber.
 
@@ -55,8 +55,8 @@ The workflow supplies:
 
 ```text
 NEXT_STATIC_EXPORT=true
-NEXT_PUBLIC_BASE_PATH=/portfolio-
-NEXT_PUBLIC_SITE_URL=https://shihabbk18.github.io/portfolio-
+NEXT_PUBLIC_BASE_PATH=/Portfolio
+NEXT_PUBLIC_SITE_URL=https://shihabbk18.github.io/Portfolio
 ```
 
 

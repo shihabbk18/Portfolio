@@ -16,8 +16,8 @@ concurrency:
 
 env:
   NEXT_STATIC_EXPORT: "true"
-  NEXT_PUBLIC_BASE_PATH: /portfolio-
-  NEXT_PUBLIC_SITE_URL: https://shihabbk18.github.io/portfolio-
+  NEXT_PUBLIC_BASE_PATH: /Portfolio
+  NEXT_PUBLIC_SITE_URL: https://shihabbk18.github.io/Portfolio
 
 jobs:
   build:

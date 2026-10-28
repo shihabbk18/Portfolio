@@ -71,3 +71,7 @@ Owner approved publication to shihabbk18/PORTFOLIO-. Removed the on-page design 
 
 
 Owner correction: publish this repository as lowercase portfolio-, serving only the portfolio. Removed the GestureCam compatibility build and nested demo path from the deployment. GestureCam remains an external project in its own repository.
+
+
+## Consolidation into the original Portfolio repository — 2026-10-28
+Owner requested keeping this design in shihabbk18/Portfolio and removing the duplicate portfolio- repository. Updated workflow base path, site metadata, and README live URL to /Portfolio. The original repository HEAD is an ancestor of this version, so migration preserves its history without a force push. The duplicate contains only main and no issues, stars, or forks. A local Git bundle is saved before removal.
