@@ -1,65 +1,60 @@
 # Shihab Bin Kader — Portfolio
 
-[Live website](https://shihabbk18.github.io/Portfolio/) · [LinkedIn](https://www.linkedin.com/in/shihab-bin-kader-a30841409/) · [ResearchGate](https://www.researchgate.net/profile/Shihab-Bin-Kader-2)
+AI research, computer vision, and software projects by Shihab Bin Kader, a Computer Science and Engineering graduate based in Chattogram, Bangladesh.
 
-A personal portfolio showcasing computer vision, explainable AI, research contributions, and practical software projects. Built with Next.js, React, TypeScript, Tailwind CSS, and Motion.
+**[View live portfolio](https://shihabbk18.github.io/Portfolio/)** · [LinkedIn](https://www.linkedin.com/in/shihab-bin-kader-a30841409/) · [ResearchGate](https://www.researchgate.net/profile/Shihab-Bin-Kader-2)
 
-## Features
+## Highlights
 
-- Animated portrait, floating shapes, and responsive layouts.
-- Home, About, Work, Research, and Contact pages.
-- 16 project case studies, including GestureCam FX, LitWeaver AI, and Fun with Flags.
-- Project search, field filters, and keyboard navigation.
-- White, Black, Midnight, and Violet themes with remembered preferences.
-- Shihab Bot, an animated Q&A mascot that answers from the portfolio’s local knowledge base.
-- Motion controls, reduced-motion support, and accessible HTML content.
-- Downloadable CV and a validated contact form that opens an email draft.
+- Interactive lamp entrance and animated portrait.
+- Home, About, Work, Research, and Contact pages with 16 project case studies.
+- Searchable project gallery, category filters, and keyboard navigation.
+- Midnight blue by default, with Black, White, and Violet themes.
+- Shihab Bot: an expressive companion with automatic activities, project Q&A, and progressively typed replies.
+- Responsive layouts, reduced-motion support, downloadable CV, and email contact form.
 
-## Run locally
+## Stack
 
-Requires Node.js 22.13 or later and pnpm 10.
+Next.js · React · TypeScript · Tailwind CSS · Motion · Vitest
+
+Statically exported and deployed to GitHub Pages through GitHub Actions.
+
+## Local development
+
+Requires **Node.js 22.13+** and **pnpm 10**.
 
 ```sh
+git clone https://github.com/shihabbk18/Portfolio.git
+cd Portfolio
 pnpm install --frozen-lockfile
 pnpm exec next dev
 ```
 
-Open http://localhost:3000.
+Open [localhost:3000](http://localhost:3000).
 
 ```sh
-pnpm test
-pnpm build:next
+pnpm test          # Run tests
+pnpm typecheck     # Check TypeScript
+pnpm build:next    # Build with Next.js
 ```
 
-## Content and structure
+## Content
 
-| Location | Purpose |
+| Path | Purpose |
 | --- | --- |
-| `app/` | Routes, metadata, and styles |
-| `components/clay/` | Animated portrait and home-page presentation |
-| `components/robot/` | Mascot, chat UI, and local answers |
-| `components/experience/` | Shared state, colour themes, and motion controls |
-| `data/portfolio.ts` | Biography, education, research, and profile links |
-| `data/projects.ts` | Project content and case-study routes |
-| `data/skills.ts` | Technical skills |
-| `public/clay/` | Portrait and decorative assets |
-| `public/Shihab-Bin-Kader-CV.pdf` | Downloadable CV |
+| `app/` | Pages, metadata, and styles |
+| `data/` | Profile, projects, research, skills, and themes |
+| `components/experience/` | Lamp entrance, navigation state, and motion controls |
+| `components/robot/` | Bot activities, chat interface, and answer matching |
+| `public/` | Portraits, mascot sprites, CV, and decorative assets |
+| `tests/` | Component and behaviour tests |
 
-Shihab Bot uses local keyword matching and verified portfolio content. Chat is not sent to an external AI service. The contact form opens the visitor’s email app; it does not send or store messages.
+The bot answers from a local knowledge base; no chat is sent to an external AI service. The contact form opens an email draft in the visitor’s email app.
 
 ## Deployment
 
-GitHub Actions builds a static export and publishes it to GitHub Pages on pushes to `main`. Repository settings must use **GitHub Actions** as the Pages source.
+Pushes to `main` trigger [the deployment workflow](.github/workflows/deploy-pages.yml). It builds the static site into `out/` using the `/Portfolio` base path and publishes it to GitHub Pages. The repository’s Pages source should be set to **GitHub Actions**.
 
-The workflow supplies:
+## Credits & license
 
-```text
-NEXT_STATIC_EXPORT=true
-NEXT_PUBLIC_BASE_PATH=/Portfolio
-NEXT_PUBLIC_SITE_URL=https://shihabbk18.github.io/Portfolio
-```
-
-
-## License and acknowledgements
-
-Source code is MIT licensed. The decorative assets and original visual theme derive from [Deri Kurniawan’s 3D portfolio](https://github.com/Deri-Kurniawan/3d-portfolio); its [MIT notice](public/licenses/deri-portfolio-MIT.txt) is retained. Personal content and the supplied portrait are attributable to Shihab Bin Kader.
+Source code is available under the [MIT License](LICENSE). The original visual theme and decorative assets are adapted from [Deri Kurniawan’s 3D portfolio](https://github.com/Deri-Kurniawan/3d-portfolio), with its [MIT notice](public/licenses/deri-portfolio-MIT.txt) retained. Personal content and portraits belong to Shihab Bin Kader.
