@@ -17,4 +17,4 @@ export function sceneColors(theme: ThemeId): string[] {
 }
 
 // Runs before hydration so a returning visitor does not see the wrong colour scheme.
-export const themeBootstrap = `try{var t=localStorage.getItem('${themeStorageKey}');document.documentElement.dataset.theme=['midnight','black','white','violet'].includes(t)?t:'white'}catch(e){document.documentElement.dataset.theme='white'}`;
+export const themeBootstrap = `try{var t=localStorage.getItem('${themeStorageKey}');document.documentElement.dataset.theme=['midnight','black','white','violet'].includes(t)?t:'midnight'}catch(e){document.documentElement.dataset.theme='midnight'}`;

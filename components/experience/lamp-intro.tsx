@@ -1,19 +1,21 @@
 "use client";
 
 import { useEffect, useRef, useState, type ReactNode } from "react";
+import { usePathname } from "next/navigation";
 
 export function LampIntro({ children }: { children: ReactNode }) {
-  const [stage, setStage] = useState<"off" | "on" | "done">("done");
+  const pathname = usePathname();
+  const [stage, setStage] = useState<"off" | "on" | "done">(() => {
+    const home = (pathname ?? "").replace(/\/$/, "").toLowerCase();
+    return home === "" || home === "/portfolio" ? "off" : "done";
+  });
   const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const trigger = useRef<HTMLButtonElement>(null);
   const active = stage !== "done";
 
   useEffect(() => {
     // Only introduce the landing page; client-side navigation never replays it.
-    const home = location.pathname.replace(/\/$/, "").toLowerCase();
-    if ((home === "" || home === "/portfolio") && !location.hash && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      setStage("off");
-    }
+    if (location.hash || window.matchMedia("(prefers-reduced-motion: reduce)").matches) setStage("done");
     return () => { if (timer.current) clearTimeout(timer.current); };
   }, []);
 

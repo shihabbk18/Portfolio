@@ -88,7 +88,7 @@ const personSchema = {
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" data-theme="white" suppressHydrationWarning>
+    <html lang="en" data-theme="midnight" suppressHydrationWarning>
       <head><script dangerouslySetInnerHTML={{ __html: themeBootstrap }} /></head>
       <body className={`${inter.variable} ${manrope.variable}`}>
         <a className="skip-link" href="#main-content">Skip to main content</a>

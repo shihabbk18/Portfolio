@@ -1,6 +1,7 @@
 import { act, cleanup, fireEvent, render, screen } from "@testing-library/react";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { LampIntro } from "@/components/experience/lamp-intro";
+vi.mock("next/navigation", () => ({ usePathname: () => location.pathname }));
 afterEach(() => { cleanup(); vi.useRealTimers(); });
 describe("Lamp entrance", () => {
   it("reveals the site and removes the lamp", () => {
