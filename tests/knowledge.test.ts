@@ -1,7 +1,32 @@
 import { describe, expect, it } from "vitest";
 import { answerQuestion } from "@/components/robot/knowledge";
+import { projects } from "@/data/projects";
 
 describe("Portfolio knowledge guide", () => {
+  it("recognizes every project by its title and repository-style identifier", () => {
+    for (const project of projects) {
+      expect(answerQuestion(`Tell me about ${project.title}`).projectId).toBe(project.id);
+      expect(answerQuestion(project.id).projectId).toBe(project.id);
+    }
+  });
+  it("understands short aliases, greetings, separators and small project-name typos", () => {
+    for (const question of ["star albi", "Hi star albi", "STAR-ALBI", "Star Chicken Albi"]) {
+      expect(answerQuestion(question).projectId).toBe("star-chicken");
+    }
+    for (const question of ["gesture cam", "hey gesture cam", "Gesture-Cam!", "gesture   cam", "gestur cam", "gesturecamfx"]) {
+      expect(answerQuestion(question).projectId).toBe("gesturecam-fx");
+    }
+    expect(answerQuestion("What technologies?", "star-chicken").text).toContain("React");
+    expect(answerQuestion("flagship phone").projectId).toBeUndefined();
+    expect(answerQuestion("model railway").projectId).toBeUndefined();
+  });
+  it("shares the owner-provided personal message for Payel", () => {
+    for (const question of ["Payel", "Who is Payel?", "Tell me about PAYEL!"]) {
+      expect(answerQuestion(question).text).toContain("love of Shihab’s life");
+      expect(answerQuestion(question).text).toContain("apple of his eye");
+    }
+    expect(answerQuestion("payelless").text).not.toContain("love of Shihab");
+  });
   it("answers about newly added projects and links their case studies", () => {
     expect(answerQuestion("Tell me about Fun with Flags").link?.href).toBe("/work/fun-with-flags/");
     expect(answerQuestion("What is LitWeaver?").text).toContain("numerical claim");

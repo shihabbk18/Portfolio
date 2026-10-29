@@ -20,18 +20,54 @@ const aliases: Record<string, string[]> = {
   "multimodal-ai": ["multimodal app", "multimodal ai"],
   "image-caption-generator": ["image caption", "caption generator"],
   "movie-data-analysis": ["movie data", "movie analysis"],
-  "star-chicken": ["star chicken", "restaurant website"],
+  "star-chicken": ["star chicken", "star albi", "star chicken albi", "starchicken", "restaurant website"],
 };
 
+const normalize = (text: string) => text.toLowerCase().replace(/[’']/g, "").replace(/[^\p{L}\p{N}]+/gu, " ").trim();
+
+// Allow one missing, extra, or mistyped character in distinctive project names.
+function oneEditApart(a: string, b: string): boolean {
+  if (Math.abs(a.length - b.length) > 1) return false;
+  let i = 0, j = 0, edits = 0;
+  while (i < a.length && j < b.length) {
+    if (a[i] === b[j]) { i++; j++; continue; }
+    if (++edits > 1) return false;
+    if (a.length >= b.length) i++;
+    if (b.length >= a.length) j++;
+  }
+  return edits + Number(i < a.length || j < b.length) <= 1;
+}
+
+function findProject(question: string) {
+  const words = question.split(/\s+/);
+  const spans: string[] = [];
+  for (let i = 0; i < words.length; i++) {
+    for (let size = 1; size <= 5 && i + size <= words.length; size++) spans.push(words.slice(i, i + size).join(""));
+  }
+  const ranked = projects.map((project) => {
+    const names = [project.title, project.id, ...(aliases[project.id] ?? [])].map(normalize);
+    let score = 0;
+    for (const name of names) {
+      const compact = name.replace(/\s/g, "");
+      if (` ${question} `.includes(` ${name} `)) score = Math.max(score, 1000 + compact.length);
+      else if (spans.includes(compact)) score = Math.max(score, 900 + compact.length);
+      else if (compact.length >= 7 && spans.some((span) => span.length >= 6 && oneEditApart(span, compact))) score = Math.max(score, 500 + compact.length);
+    }
+    return { project, score };
+  }).sort((a, b) => b.score - a.score);
+  // Do not guess if two projects have equally strong matches.
+  return ranked[0]?.score && ranked[0].score !== ranked[1]?.score ? ranked[0].project : undefined;
+}
+
 export function answerQuestion(question: string, previousProject?: string): Answer {
-  const q = question.toLowerCase().replace(/[’']/g, "").trim().slice(0, 600);
+  const q = normalize(question.slice(0, 600));
   const unknown = { text: "I don’t have verified information about that. I can help with Shihab’s education, research, skills, projects, CV, and contact details.", link: internal("Contact Shihab", "/contact/") };
   if (/\b(cgpa|gpa|grades?|marks?|academic scores?)\b/.test(q)) return { text: "Academic grades aren’t shared on this portfolio. I can tell you about Shihab’s education, research, and projects.", link: internal("Education & background", "/about/") };
+  if (/\bpayel\b/.test(q)) return { text: "Payel is the love of Shihab’s life, the apple of his eye, and his favourite person. She holds a very special place in his heart. ❤️" };
   if (/\blinked\s?in\b/.test(q)) return { text: "You can find Shihab’s professional profile on LinkedIn.", link: { label: "Shihab on LinkedIn", href: identity.linkedin } };
   if (/\bresearch\s?gate\b/.test(q)) return { text: "You can find Shihab’s research profile on ResearchGate.", link: { label: "Shihab on ResearchGate", href: identity.researchgate } };
   if (/\b(salary|age|birthday|married|password|secret|phone|address|employer|visa)\b/.test(q)) return unknown;
-  if (/\b(hello|hi|hey|help)\b/.test(q) && q.split(/\s+/).length < 5) return { text: "Hi! I’m Shihab Bot, Shihab’s portfolio guide. Ask about his research, education, skills, or a project such as GestureCam FX or ModelDNA." };
-  const namedProject = projects.find((project) => (aliases[project.id] ?? [project.title.toLowerCase()]).some((alias) => q.includes(alias)));
+  const namedProject = findProject(q);
   const followUp = /\b(it|its|that|this|technologies|stack|tools|built|outcome|result)\b/.test(q);
   const project = namedProject ?? (followUp ? projects.find((item) => item.id === previousProject) : undefined);
   if (project) return {
@@ -40,8 +76,9 @@ export function answerQuestion(question: string, previousProject?: string): Answ
       : `${project.title}: ${project.description}\n\n${project.outcome}${project.disclaimer ? `\n\n${project.disclaimer}` : ""}`,
     link: internal("Read the case study", `/work/${project.id}/`), projectId: project.id,
   };
+  if (/\b(hello|hi|hey|help)\b/.test(q) && q.split(/\s+/).length < 5) return { text: "Hi! I’m Shihab Bot, Shihab’s portfolio guide. Ask about his research, education, skills, or a project such as GestureCam FX or ModelDNA." };
   if (/hyptis|phytochemical|pharmacological|in review/.test(q)) return { text: `${additionalResearch.title}. Status: ${additionalResearch.status}; role: ${additionalResearch.role}. ${additionalResearch.contribution}`, link: internal("Research record", "/research/") };
-  if (/\b(research|publication|paper|mango|thesis|grad-cam)\b/.test(q)) return { text: `${research.title}. ${research.summary}\n\nHis contribution: ${research.contribution}`, link: internal("Explore research", "/research/") };
+  if (/\b(research|publication|paper|mango|thesis|grad cam)\b/.test(q)) return { text: `${research.title}. ${research.summary}\n\nHis contribution: ${research.contribution}`, link: internal("Explore research", "/research/") };
   if (/\b(education|degree|university|graduat\w*|study|studied)\b/.test(q)) return { text: `${education.degree}, ${education.university} (${education.period}). ${education.credits} credits completed. Thesis: ${education.thesis}.`, link: internal("Education & background", "/about/") };
   if (/\b(ielts|english|bengali|languages|language score)\b/.test(q)) return { text: `${languages.ielts}. ${languages.scores}. ${languages.proficiency}.` };
   if (/\b(skills|skill|software|tools|programming|stack|frameworks|python|pytorch|tensorflow)\b/.test(q)) return { text: skillGroups.map((group) => `${group.title}: ${group.skills.join(", ")}.`).join("\n\n"), link: internal("View skills", "/about/#skills") };
