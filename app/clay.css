@@ -295,3 +295,36 @@ html[data-theme] .assistant-panel { bottom: 195px; }
 @keyframes lampExit { 0%,30% { background:#111317; opacity:1; } 65% { background:#11131700; opacity:1; } 100% { background:transparent; opacity:0; } }
 @keyframes portfolioReveal { 0%,25% { opacity:0; } 100% { opacity:1; } }
 @media(prefers-reduced-motion:reduce) { .lamp-intro { display:none; } .lamp-site--off { visibility:visible; } .lamp-site--on { animation:none; } }
+
+/* Small expressive companion; all activities pause with the site's motion setting. */
+html[data-theme] .robot-launcher { width:76px; height:139px; right:16px; bottom:12px; }
+html[data-theme] .robot-viewport { inset:0 0 23px; filter:none; overflow:visible; }
+html[data-theme] .robot-launcher__label { font-size:8px; padding:4px 5px; white-space:nowrap; }
+html[data-theme] .assistant-panel { bottom:164px; max-height:min(650px,calc(100svh - 184px)); }
+.bot-companion { position:relative; display:block; width:76px; height:116px; animation:botFloat 4s ease-in-out infinite; }
+.bot-companion__sprite { display:block; width:100%; height:100%; background-size:500% 100%; background-repeat:no-repeat; background-position:0 0; filter:drop-shadow(0 4px 5px #0004); }
+.bot-sprite-preload { display:none; }
+.bot-companion--happy .bot-companion__sprite { background-position:100% 0; }
+.bot-companion--work { animation:botWork .65s ease-in-out infinite alternate; }
+.bot-companion--work .bot-companion__sprite { background-position:75% 0; }
+.bot-companion--yawn { animation:botYawn 2.8s ease-in-out; }
+.bot-companion--yawn .bot-companion__sprite { background-position:25% 0; }
+.bot-companion--sleep { width:112px; height:112px; position:absolute; left:-36px; bottom:-12px; animation:botBreathe 3.5s ease-in-out infinite; }
+.bot-companion--sleep .bot-companion__sprite { background-size:300% 100%; background-position:0 0; }
+.bot-companion__dream { position:absolute; left:10px; top:18px; color:#a6cafa; font:600 12px Arial; letter-spacing:5px; animation:botDream 2.5s ease-in-out infinite; }
+.bot-companion--football { width:92px; height:106px; left:-8px; top:10px; animation:none; }
+.bot-companion--football .bot-companion__sprite { background-size:300% 100%; animation:botFeet 1.2s steps(1,end) infinite; }
+.bot-companion__ball { position:absolute; left:0; bottom:23px; font:22px/1 Arial; filter:drop-shadow(0 2px 2px #0005); animation:botFootball 1.2s linear infinite; }
+.assistant-typing-cursor { color:var(--accent,#72e5ec); animation:typingBlink .8s steps(1) infinite; }
+.assistant-suggestions button:disabled { opacity:.55; cursor:wait; }
+@keyframes botFloat { 50% { transform:translateY(-4px) rotate(1deg); } }
+@keyframes botWork { to { transform:translateY(-2px) rotate(-2deg); } }
+@keyframes botYawn { 45% { transform:scale(1.06) rotate(-4deg); } 70% { transform:scale(1.02) rotate(2deg); } }
+@keyframes botBreathe { 50% { transform:translateY(1px) scale(1.015); } }
+@keyframes botDream { 0% { opacity:0; transform:translateY(4px); } 50% { opacity:1; } 100% { opacity:0; transform:translateY(-12px); } }
+@keyframes botFeet { 0%,100% { background-position:50% 0; transform:rotate(-2deg); } 50% { background-position:100% 0; transform:rotate(2deg); } }
+@keyframes botFootball { 0% { transform:translate(72px,-6px) rotate(0); } 25% { transform:translate(36px,-55px) rotate(100deg); } 50% { transform:translate(0,-6px) rotate(200deg); } 75% { transform:translate(36px,-55px) rotate(300deg); } 100% { transform:translate(72px,-6px) rotate(400deg); } }
+@keyframes typingBlink { 50% { opacity:0; } }
+.motion-paused .bot-companion,.motion-paused .bot-companion *,.bot-companion--paused,.bot-companion--paused * { animation:none!important; }
+@media (prefers-reduced-motion:reduce) { .bot-companion,.bot-companion *,.assistant-typing-cursor { animation:none!important; } }
+@media(max-width:560px) { html[data-theme] .robot-launcher { width:68px; height:128px; right:9px; bottom:9px; } .bot-companion { width:68px; height:105px; } .bot-companion--sleep { width:102px; height:102px; left:-34px; bottom:-12px; } .bot-companion--football { width:84px; height:96px; } html[data-theme] .assistant-panel { bottom:151px; max-height:calc(100svh - 170px); } }
