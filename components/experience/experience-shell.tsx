@@ -7,6 +7,7 @@ import { Assistant } from "@/components/robot/assistant";
 import { Navigation } from "@/components/navigation";
 import { Footer } from "@/components/footer";
 import { RouteScrollReset } from "./route-scroll-reset";
+import { LampIntro } from "./lamp-intro";
 import { ThemePicker } from "./theme-picker";
 
 function ShellContent({ children }: { children: ReactNode }) {
@@ -21,5 +22,5 @@ function ShellContent({ children }: { children: ReactNode }) {
 }
 
 export function ExperienceShell({ children }: { children: ReactNode }) {
-  return <ExperienceProvider><ShellContent>{children}</ShellContent></ExperienceProvider>;
+  return <ExperienceProvider><LampIntro><ShellContent>{children}</ShellContent></LampIntro></ExperienceProvider>;
 }

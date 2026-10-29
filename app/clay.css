@@ -263,3 +263,31 @@ html[data-theme] .assistant-panel { bottom: 195px; }
   .qa-mascot, .qa-mascot__glow { animation: none !important; }
   .qa-mascot__image, .qa-mascot__glow { transition: none; }
 }
+
+/* Pull-cord desk lamp entrance. The shared shell keeps it out of route changes. */
+.lamp-intro { position:fixed; inset:0; z-index:10000; display:grid; place-items:center; background:#111317; color:#f5edda; overflow:hidden; isolation:isolate; }
+.lamp-intro__brand { position:absolute; top:7%; left:8%; font:500 12px/1.8 var(--font-inter),sans-serif; letter-spacing:.22em; }
+.lamp-intro__brand span { display:block; font-size:9px; color:#9a9da5; letter-spacing:.16em; margin-top:8px; }
+.lamp-intro__switch { appearance:none; border:0; background:transparent; color:inherit; display:flex; flex-direction:column; align-items:center; cursor:pointer; padding:20px; position:relative; border-radius:30px; }
+.lamp-intro__switch:focus-visible,.lamp-intro__skip:focus-visible { outline:2px solid #e8c481; outline-offset:8px; }
+.desk-lamp { width:clamp(200px,30vw,340px); height:min(49svh,420px); overflow:visible; filter:drop-shadow(0 16px 30px #0005); }
+.desk-lamp__cord { transform-origin:218px 177px; animation:lampCord 3s ease-in-out infinite; }
+.lamp-intro__switch:hover .desk-lamp__cord { transform:translateY(6px); animation:none; }
+.lamp-intro__prompt { font:500 clamp(17px,3vw,24px)/1.5 var(--font-manrope),sans-serif; margin-top:22px; letter-spacing:-.03em; }
+.lamp-intro__hint { font:400 12px/2 var(--font-inter),sans-serif; color:#a5a5ac; margin-top:12px; min-height:24px; }
+.lamp-intro__skip { position:absolute; right:8%; bottom:7%; color:#c3c3cb; background:transparent; border:0; font-size:12px; padding:12px; cursor:pointer; }
+.lamp-intro__light { position:absolute; inset:-50%; z-index:-1; background:radial-gradient(ellipse at 50% 48%,#ffdf9b 0%,#efb84c55 20%,transparent 57%); opacity:0; pointer-events:none; }
+.lamp-site--off { visibility:hidden; }
+.lamp-intro--on { animation:lampExit 1.8s ease-in-out forwards; pointer-events:none; }
+.lamp-intro--on .lamp-intro__light { animation:lampIlluminate 1.8s ease-out forwards; }
+.lamp-intro--on .desk-lamp__bulb { fill:#fff5c5; filter:drop-shadow(0 0 18px #ffdb7d); }
+.lamp-intro--on .desk-lamp__cord { animation:lampPull .45s ease-out; }
+.lamp-intro--on .lamp-intro__switch { animation:lampVanish 1.8s ease-in-out forwards; }
+.lamp-site--on { animation:portfolioReveal 1.8s ease-out both; }
+@keyframes lampCord { 0%,100% { transform:rotate(-3deg); } 50% { transform:rotate(3deg); } }
+@keyframes lampPull { 40% { transform:translateY(16px); } 100% { transform:translateY(0); } }
+@keyframes lampIlluminate { 0% { opacity:0; transform:scale(.5); } 35% { opacity:.9; } 70% { opacity:1; transform:scale(1.8); } 100% { opacity:0; transform:scale(2.5); } }
+@keyframes lampVanish { 0%,35% { opacity:1; transform:translateY(0); } 80%,100% { opacity:0; transform:translateY(-35px) scale(.92); } }
+@keyframes lampExit { 0%,30% { background:#111317; opacity:1; } 65% { background:#11131700; opacity:1; } 100% { background:transparent; opacity:0; } }
+@keyframes portfolioReveal { 0%,25% { opacity:0; } 100% { opacity:1; } }
+@media(prefers-reduced-motion:reduce) { .lamp-intro { display:none; } .lamp-site--off { visibility:visible; } .lamp-site--on { animation:none; } }
