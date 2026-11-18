@@ -268,17 +268,18 @@ html[data-theme] .assistant-panel { bottom: 195px; }
 .lamp-intro { position:fixed; inset:0; z-index:10000; display:grid; place-items:center; background:#111317; color:#f5edda; overflow:hidden; isolation:isolate; }
 .lamp-intro__brand { position:absolute; top:7%; left:8%; font:500 12px/1.8 var(--font-inter),sans-serif; letter-spacing:.22em; }
 .lamp-intro__brand span { display:block; font-size:9px; color:#9a9da5; letter-spacing:.16em; margin-top:8px; }
-.lamp-intro__switch { appearance:none; border:0; background:transparent; color:inherit; display:flex; flex-direction:column; align-items:center; cursor:pointer; padding:20px; position:relative; border-radius:30px; }
-.lamp-intro__switch { left:-6vw; }
+.lamp-intro__switch { appearance:none; position:absolute; top:50%; left:50%; width:clamp(270px,min(70vw,53svh),460px); aspect-ratio:340/440; padding:0; border:0; border-radius:30px; color:inherit; background:transparent; cursor:pointer; transform:translate(-50%,-50%); }
 .lamp-intro__switch:focus-visible { outline:none; }
 .lamp-intro__switch:focus-visible .lamp-intro__hint { text-decoration:underline; text-underline-offset:5px; color:#e8c481; }
 .lamp-intro__skip:focus-visible { outline:2px solid #e8c481; outline-offset:8px; }
-@media (max-width:560px) { .lamp-intro__switch { left:-3vw; max-width:94vw; } }
-.desk-lamp { width:clamp(200px,30vw,340px); height:min(49svh,420px); overflow:visible; filter:drop-shadow(0 16px 30px #0005); }
-.desk-lamp__cord { transform-origin:218px 177px; animation:lampCord 3s ease-in-out infinite; }
+.desk-lamp { display:block; width:100%; height:100%; overflow:visible; filter:drop-shadow(0 16px 30px #0005); }
+.desk-lamp__cord { transform-origin:218px 177px; animation:lampCord 3s ease-in-out infinite; cursor:grab; touch-action:none; }
+.desk-lamp__cord--dragging { animation:none!important; cursor:grabbing; }
+.desk-lamp__cord-hitbox { pointer-events:stroke; }
 .lamp-intro__switch:hover .desk-lamp__cord { transform:translateY(6px); animation:none; }
-.lamp-intro__prompt { font:500 clamp(17px,3vw,24px)/1.5 var(--font-manrope),sans-serif; margin-top:22px; letter-spacing:-.03em; }
-.lamp-intro__hint { font:400 12px/2 var(--font-inter),sans-serif; color:#a5a5ac; margin-top:12px; min-height:24px; }
+.lamp-intro__switch:has(.desk-lamp__cord--dragging):hover .desk-lamp__cord { transform:none; }
+.lamp-intro__prompt { position:absolute; top:calc(100% + 18px); left:50%; width:max-content; max-width:92vw; font:500 clamp(17px,3vw,24px)/1.5 var(--font-manrope),sans-serif; letter-spacing:-.03em; transform:translateX(-50%); }
+.lamp-intro__hint { position:absolute; top:calc(100% + 60px); left:50%; width:max-content; max-width:92vw; min-height:24px; color:#a5a5ac; font:400 12px/2 var(--font-inter),sans-serif; transform:translateX(-50%); }
 .lamp-intro__skip { position:absolute; right:8%; bottom:7%; color:#c3c3cb; background:transparent; border:0; font-size:12px; padding:12px; cursor:pointer; }
 .lamp-intro__light { position:absolute; inset:-50%; z-index:-1; background:radial-gradient(ellipse at 50% 48%,#ffdf9b 0%,#efb84c55 20%,transparent 57%); opacity:0; pointer-events:none; }
 .lamp-site--off { visibility:hidden; }

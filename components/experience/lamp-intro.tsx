@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState, type ReactNode } from "react";
+import { useEffect, useRef, useState, type PointerEvent, type ReactNode } from "react";
 import { usePathname } from "next/navigation";
 
 export function LampIntro({ children }: { children: ReactNode }) {
@@ -11,6 +11,12 @@ export function LampIntro({ children }: { children: ReactNode }) {
   });
   const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const trigger = useRef<HTMLButtonElement>(null);
+  const [cordPull, setCordPull] = useState(0);
+  const [cordDragging, setCordDragging] = useState(false);
+  const cordPullRef = useRef(0);
+  const cordDragStart = useRef(0);
+  const draggingCord = useRef(false);
+  const cordMoved = useRef(false);
   const active = stage !== "done";
 
   useEffect(() => {
@@ -40,8 +46,60 @@ export function LampIntro({ children }: { children: ReactNode }) {
 
   function illuminate() {
     if (stage !== "off") return;
+    draggingCord.current = false;
+    cordPullRef.current = 0;
+    setCordDragging(false);
+    setCordPull(0);
     setStage("on");
     timer.current = setTimeout(finish, 1800);
+  }
+
+  function startCordDrag(event: PointerEvent<SVGGElement>) {
+    if (stage !== "off") return;
+    event.preventDefault();
+    event.stopPropagation();
+    draggingCord.current = true;
+    cordMoved.current = false;
+    cordDragStart.current = event.clientY;
+    cordPullRef.current = 0;
+    setCordPull(0);
+    setCordDragging(true);
+    event.currentTarget.setPointerCapture?.(event.pointerId);
+  }
+
+  function dragCord(event: PointerEvent<SVGGElement>) {
+    if (!draggingCord.current || stage !== "off") return;
+    event.preventDefault();
+    event.stopPropagation();
+    const pull = Math.min(64, Math.max(0, event.clientY - cordDragStart.current));
+    cordPullRef.current = pull;
+    cordMoved.current = pull > 3;
+    setCordPull(pull);
+  }
+
+  function releaseCord(event: PointerEvent<SVGGElement>) {
+    if (!draggingCord.current) return;
+    event.preventDefault();
+    event.stopPropagation();
+    if (event.currentTarget.hasPointerCapture?.(event.pointerId)) {
+      event.currentTarget.releasePointerCapture(event.pointerId);
+    }
+    draggingCord.current = false;
+    setCordDragging(false);
+    const pulledFarEnough = cordPullRef.current >= 24;
+    cordPullRef.current = 0;
+    setCordPull(0);
+    if (pulledFarEnough) illuminate();
+  }
+
+  function cancelCordDrag(event: PointerEvent<SVGGElement>) {
+    if (!draggingCord.current) return;
+    event.stopPropagation();
+    draggingCord.current = false;
+    cordMoved.current = false;
+    cordPullRef.current = 0;
+    setCordDragging(false);
+    setCordPull(0);
   }
 
   return <>
@@ -55,7 +113,7 @@ export function LampIntro({ children }: { children: ReactNode }) {
       <div className="lamp-intro__light" aria-hidden="true" />
       <span className="lamp-intro__brand">SHIHAB BIN KADER <span>CREATIVE MIND. CURIOUS BUILDER.</span></span>
       <button ref={trigger} className="lamp-intro__switch" onClick={illuminate} aria-label="Switch on the lamp and enter portfolio" aria-disabled={stage === "on"}>
-        <svg className="desk-lamp" viewBox="0 0 360 440" fill="none" aria-hidden="true">
+        <svg className="desk-lamp" viewBox="0 0 340 440" fill="none" aria-hidden="true">
           <defs>
             <linearGradient id="lamp-metal" x1="100" y1="200" x2="210" y2="240" gradientUnits="userSpaceOnUse"><stop stopColor="#11151c"/><stop offset=".45" stopColor="#656b76"/><stop offset=".6" stopColor="#292e37"/><stop offset="1" stopColor="#0c0e13"/></linearGradient>
             <linearGradient id="lamp-shade" x1="150" y1="70" x2="265" y2="175" gradientUnits="userSpaceOnUse"><stop stopColor="#656976"/><stop offset=".35" stopColor="#30343e"/><stop offset="1" stopColor="#10131a"/></linearGradient>
@@ -71,10 +129,26 @@ export function LampIntro({ children }: { children: ReactNode }) {
           <path d="M154 151 C160 61 224 39 253 105 L279 177 Z" fill="url(#lamp-shade)" stroke="#545965" strokeWidth="2"/>
           <ellipse cx="216" cy="164" rx="66" ry="23" transform="rotate(17 216 164)" fill="url(#lamp-inside)" stroke="#b28a4b" strokeWidth="3"/>
           <ellipse className="desk-lamp__bulb" cx="215" cy="156" rx="15" ry="18" fill="#b6a887"/>
-          <g className="desk-lamp__cord"><path d="M218 177 V260" stroke="#d2b270" strokeWidth="2"/><rect x="212" y="259" width="12" height="22" rx="6" fill="#d2b270"/></g>
+          <g
+            className={`desk-lamp__cord${cordDragging ? " desk-lamp__cord--dragging" : ""}`}
+            data-testid="lamp-cord"
+            onPointerDown={startCordDrag}
+            onPointerMove={dragCord}
+            onPointerUp={releaseCord}
+            onPointerCancel={cancelCordDrag}
+            onClick={(event) => {
+              event.stopPropagation();
+              if (!cordMoved.current) illuminate();
+              cordMoved.current = false;
+            }}
+          >
+            <path className="desk-lamp__cord-hitbox" d={`M218 174 V${284 + cordPull}`} stroke="transparent" strokeWidth="28"/>
+            <path d={`M218 177 V${260 + cordPull}`} stroke="#d2b270" strokeWidth="2"/>
+            <rect x="212" y={259 + cordPull} width="12" height="22" rx="6" fill="#d2b270"/>
+          </g>
         </svg>
         <span className="lamp-intro__prompt">{stage === "off" ? "A little light. A world of ideas." : "Welcome to my world."}</span>
-        <span className="lamp-intro__hint">{stage === "off" ? "Tap the lamp to explore" : ""}</span>
+        <span className="lamp-intro__hint">{stage === "off" ? "Pull the cord or tap the lamp to explore" : ""}</span>
       </button>
       <button className="lamp-intro__skip" onClick={finish}>Skip intro ↗</button>
     </div>}

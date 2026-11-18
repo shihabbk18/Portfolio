@@ -24,4 +24,15 @@ describe("Lamp entrance", () => {
     render(<LampIntro><main>Work</main></LampIntro>);
     expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
   });
+  it("lets the lamp cord be pulled to switch on the light", () => {
+    vi.useFakeTimers();
+    history.replaceState({}, "", "/Portfolio/");
+    render(<LampIntro><main id="main-content">Portfolio</main></LampIntro>);
+    const cord = screen.getByTestId("lamp-cord");
+    fireEvent(cord, new MouseEvent("pointerdown", {bubbles: true, clientY: 100}));
+    fireEvent(cord, new MouseEvent("pointermove", {bubbles: true, clientY: 145}));
+    expect(cord.querySelector("rect")).toHaveAttribute("y", "304");
+    fireEvent(cord, new MouseEvent("pointerup", {bubbles: true, clientY: 145}));
+    expect(screen.getByRole("dialog")).toHaveClass("lamp-intro--on");
+  });
 });
