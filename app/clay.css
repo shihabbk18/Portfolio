@@ -292,7 +292,7 @@ html[data-theme] .assistant-panel { bottom: 195px; }
 @keyframes lampCord { 0%,100% { transform:rotate(-3deg); } 50% { transform:rotate(3deg); } }
 @keyframes lampPull { 40% { transform:translateY(16px); } 100% { transform:translateY(0); } }
 @keyframes lampIlluminate { 0% { opacity:0; transform:scale(.5); } 35% { opacity:.9; } 70% { opacity:1; transform:scale(1.8); } 100% { opacity:0; transform:scale(2.5); } }
-@keyframes lampVanish { 0%,35% { opacity:1; transform:translateY(0); } 80%,100% { opacity:0; transform:translateY(-35px) scale(.92); } }
+@keyframes lampVanish { 0%,35% { opacity:1; transform:translate(-50%,-50%); } 80%,100% { opacity:0; transform:translate(-50%,-50%) translateY(-35px) scale(.92); } }
 @keyframes lampExit { 0%,30% { background:#111317; opacity:1; } 65% { background:#11131700; opacity:1; } 100% { background:transparent; opacity:0; } }
 @keyframes portfolioReveal { 0%,25% { opacity:0; } 100% { opacity:1; } }
 @media(prefers-reduced-motion:reduce) { .lamp-intro { display:none; } .lamp-site--off { visibility:visible; } .lamp-site--on { animation:none; } }
