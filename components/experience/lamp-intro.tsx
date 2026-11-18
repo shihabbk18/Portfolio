@@ -3,6 +3,8 @@
 import { useEffect, useRef, useState, type PointerEvent, type ReactNode } from "react";
 import { usePathname } from "next/navigation";
 
+const restingCord = { x: 0, y: 0 };
+
 export function LampIntro({ children }: { children: ReactNode }) {
   const pathname = usePathname();
   const [stage, setStage] = useState<"off" | "on" | "done">(() => {
@@ -11,10 +13,10 @@ export function LampIntro({ children }: { children: ReactNode }) {
   });
   const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const trigger = useRef<HTMLButtonElement>(null);
-  const [cordPull, setCordPull] = useState(0);
+  const [cordPull, setCordPull] = useState(restingCord);
   const [cordDragging, setCordDragging] = useState(false);
-  const cordPullRef = useRef(0);
-  const cordDragStart = useRef(0);
+  const cordPullRef = useRef(restingCord);
+  const cordDragStart = useRef(restingCord);
   const draggingCord = useRef(false);
   const cordMoved = useRef(false);
   const active = stage !== "done";
@@ -47,9 +49,9 @@ export function LampIntro({ children }: { children: ReactNode }) {
   function illuminate() {
     if (stage !== "off") return;
     draggingCord.current = false;
-    cordPullRef.current = 0;
+    cordPullRef.current = restingCord;
     setCordDragging(false);
-    setCordPull(0);
+    setCordPull(restingCord);
     setStage("on");
     timer.current = setTimeout(finish, 1800);
   }
@@ -60,9 +62,9 @@ export function LampIntro({ children }: { children: ReactNode }) {
     event.stopPropagation();
     draggingCord.current = true;
     cordMoved.current = false;
-    cordDragStart.current = event.clientY;
-    cordPullRef.current = 0;
-    setCordPull(0);
+    cordDragStart.current = { x: event.clientX, y: event.clientY };
+    cordPullRef.current = restingCord;
+    setCordPull(restingCord);
     setCordDragging(true);
     event.currentTarget.setPointerCapture?.(event.pointerId);
   }
@@ -71,9 +73,12 @@ export function LampIntro({ children }: { children: ReactNode }) {
     if (!draggingCord.current || stage !== "off") return;
     event.preventDefault();
     event.stopPropagation();
-    const pull = Math.min(64, Math.max(0, event.clientY - cordDragStart.current));
+    const pull = {
+      x: Math.min(72, Math.max(-72, event.clientX - cordDragStart.current.x)),
+      y: Math.min(64, Math.max(0, event.clientY - cordDragStart.current.y)),
+    };
     cordPullRef.current = pull;
-    cordMoved.current = pull > 3;
+    cordMoved.current = Math.hypot(pull.x, pull.y) > 3;
     setCordPull(pull);
   }
 
@@ -86,9 +91,9 @@ export function LampIntro({ children }: { children: ReactNode }) {
     }
     draggingCord.current = false;
     setCordDragging(false);
-    const pulledFarEnough = cordPullRef.current >= 24;
-    cordPullRef.current = 0;
-    setCordPull(0);
+    const pulledFarEnough = Math.hypot(cordPullRef.current.x, cordPullRef.current.y) >= 24;
+    cordPullRef.current = restingCord;
+    setCordPull(restingCord);
     if (pulledFarEnough) illuminate();
   }
 
@@ -97,9 +102,9 @@ export function LampIntro({ children }: { children: ReactNode }) {
     event.stopPropagation();
     draggingCord.current = false;
     cordMoved.current = false;
-    cordPullRef.current = 0;
+    cordPullRef.current = restingCord;
     setCordDragging(false);
-    setCordPull(0);
+    setCordPull(restingCord);
   }
 
   return <>
@@ -142,13 +147,13 @@ export function LampIntro({ children }: { children: ReactNode }) {
               cordMoved.current = false;
             }}
           >
-            <path className="desk-lamp__cord-hitbox" d={`M218 174 V${284 + cordPull}`} stroke="transparent" strokeWidth="28"/>
-            <path d={`M218 177 V${260 + cordPull}`} stroke="#d2b270" strokeWidth="2"/>
-            <rect x="212" y={259 + cordPull} width="12" height="22" rx="6" fill="#d2b270"/>
+            <path className="desk-lamp__cord-hitbox" d={`M218 174 L${218 + cordPull.x} ${284 + cordPull.y}`} stroke="transparent" strokeWidth="28"/>
+            <path d={`M218 177 L${218 + cordPull.x} ${260 + cordPull.y}`} stroke="#d2b270" strokeWidth="2"/>
+            <rect x={212 + cordPull.x} y={259 + cordPull.y} width="12" height="22" rx="6" fill="#d2b270"/>
           </g>
         </svg>
         <span className="lamp-intro__prompt">{stage === "off" ? "A little light. A world of ideas." : "Welcome to my world."}</span>
-        <span className="lamp-intro__hint">{stage === "off" ? "Pull the cord or tap the lamp to explore" : ""}</span>
+        <span className="lamp-intro__hint">{stage === "off" ? "Tap the lamp to explore" : ""}</span>
       </button>
       <button className="lamp-intro__skip" onClick={finish}>Skip intro ↗</button>
     </div>}

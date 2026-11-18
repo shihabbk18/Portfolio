@@ -24,15 +24,16 @@ describe("Lamp entrance", () => {
     render(<LampIntro><main>Work</main></LampIntro>);
     expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
   });
-  it("lets the lamp cord be pulled to switch on the light", () => {
+  it("lets the lamp cord be pulled sideways to switch on the light", () => {
     vi.useFakeTimers();
     history.replaceState({}, "", "/Portfolio/");
     render(<LampIntro><main id="main-content">Portfolio</main></LampIntro>);
     const cord = screen.getByTestId("lamp-cord");
-    fireEvent(cord, new MouseEvent("pointerdown", {bubbles: true, clientY: 100}));
-    fireEvent(cord, new MouseEvent("pointermove", {bubbles: true, clientY: 145}));
-    expect(cord.querySelector("rect")).toHaveAttribute("y", "304");
-    fireEvent(cord, new MouseEvent("pointerup", {bubbles: true, clientY: 145}));
+    fireEvent(cord, new MouseEvent("pointerdown", {bubbles: true, clientX: 100, clientY: 100}));
+    fireEvent(cord, new MouseEvent("pointermove", {bubbles: true, clientX: 145, clientY: 100}));
+    expect(cord.querySelector("rect")).toHaveAttribute("x", "257");
+    expect(cord.querySelector("rect")).toHaveAttribute("y", "259");
+    fireEvent(cord, new MouseEvent("pointerup", {bubbles: true, clientX: 145, clientY: 100}));
     expect(screen.getByRole("dialog")).toHaveClass("lamp-intro--on");
   });
 });
