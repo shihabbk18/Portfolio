@@ -8,6 +8,7 @@ describe("Lamp entrance", () => {
     vi.useFakeTimers();
     history.replaceState({}, "", "/Portfolio/");
     render(<LampIntro><main id="main-content">Portfolio</main></LampIntro>);
+    expect(screen.queryByText("Tap the lamp to explore")).not.toBeInTheDocument();
     fireEvent.click(screen.getByRole("button", {name: /Switch on/}));
     expect(screen.getByRole("dialog")).toHaveClass("lamp-intro--on");
     act(() => { vi.advanceTimersByTime(1900); });

@@ -153,7 +153,6 @@ export function LampIntro({ children }: { children: ReactNode }) {
           </g>
         </svg>
         <span className="lamp-intro__prompt">{stage === "off" ? "A little light. A world of ideas." : "Welcome to my world."}</span>
-        <span className="lamp-intro__hint">{stage === "off" ? "Tap the lamp to explore" : ""}</span>
       </button>
       <button className="lamp-intro__skip" onClick={finish}>Skip intro ↗</button>
     </div>}
