@@ -269,7 +269,8 @@ html[data-theme] .assistant-panel { bottom: 195px; }
 .lamp-intro__brand { position:absolute; top:7%; left:8%; font:500 12px/1.8 var(--font-inter),sans-serif; letter-spacing:.22em; }
 .lamp-intro__brand span { display:block; font-size:9px; color:#9a9da5; letter-spacing:.16em; margin-top:8px; }
 .lamp-intro__switch { appearance:none; position:absolute; top:50%; left:50%; width:clamp(270px,min(70vw,53svh),460px); aspect-ratio:340/440; padding:0; border:0; border-radius:30px; color:inherit; background:transparent; cursor:pointer; transform:translate(-50%,-50%); }
-.lamp-intro__switch:focus-visible { outline:2px solid #e8c481; outline-offset:10px; }
+.lamp-intro__switch:focus-visible { outline:none; }
+.lamp-intro__switch:focus-visible .desk-lamp__bulb { stroke:#e8c481; stroke-width:2px; filter:drop-shadow(0 0 10px #e8c481aa); }
 .lamp-intro__skip:focus-visible { outline:2px solid #e8c481; outline-offset:8px; }
 .desk-lamp { display:block; width:100%; height:100%; overflow:visible; filter:drop-shadow(0 16px 30px #0005); }
 .desk-lamp__cord { transform-origin:218px 177px; animation:lampCord 3s ease-in-out infinite; cursor:grab; touch-action:none; }
